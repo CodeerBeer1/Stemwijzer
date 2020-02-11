@@ -1,3 +1,32 @@
-* {
-    background-color:blue;
+body
+{
+margin: 0;
+padding: 0;
+background-image: url("img/tweede\ kamer.jpg");
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+#pagecontainer
+{
+    width: 100%;
+}
+
+#modal
+{
+    background-color: white;
+    color: black;
+    width: 50%;
+    height: 60vh;
+    margin: 20vh auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(5, 20%);
+    grid-template-rows: repeat(5, 20%);
+}
+
+#starText
+{
+    margin: 0;
+    font-size: 30px;
 }
