@@ -17,14 +17,19 @@
 
         <img id="stemwijzer-logo" src="img/stemwijzer-transparant.png">
         <p id="starText">Start de Stemwijzer</p>
-        <button id="stemwijzer-startbutton">Start</button>
-        <div id="edge-effect"></div>
+        <button onclick="startStemwijzer()" id="stemwijzer-startbutton">Start</button>
+
+        <img class="hide" id="loading-icon" src="img/gif-loading.gif">
+
+        <p id="stelling-title">title</p>
+        <p class="hide" id="stelling-text"></p>
     </div>
 
 </div>    
    
 </body>
 
+<script src="http://stemwijzer.dvc-icta.nl/data.js"></script>
 <script src="StemwijzerJS.js"></script>
 
 </html>
