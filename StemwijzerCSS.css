@@ -10,7 +10,10 @@
     display: block;
 }
 
-
+.grid
+{
+    display: grid;
+}
 
 /* Start-Up */
 
@@ -30,7 +33,7 @@ background-size: cover;
     width: 100%;
 }
 
-#modal
+#intro-modal
 {
     background-color: white;
     color: black;
@@ -38,7 +41,18 @@ background-size: cover;
     height: 60vh;
     margin: 20vh auto;
     padding: 5vh;
-    display: grid;
+    grid-template-columns: repeat(5, 20%);
+    grid-template-rows: repeat(5, 20%);
+}
+
+#secondary-modal
+{
+    background-color: white;
+    color: black;
+    width: 50%;
+    height: 60vh;
+    margin: 20vh auto;
+    padding: 5vh;
     grid-template-columns: repeat(5, 20%);
     grid-template-rows: repeat(5, 20%);
 }
@@ -58,6 +72,38 @@ background-size: cover;
     margin: 0;
     font-size: 3vh;
     grid-area: 3/2/4/5;
+}
+
+#contributors-text
+{
+    text-align: center;
+    font-family: arial;
+    font-weight: bold;
+    margin: 0;
+    font-size: 3vh;
+    grid-area: 1/2/2/5;
+}
+
+#contributors-container
+{
+    grid-area: 2/1/3/6;
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: repeat(11, 8.45%);
+    grid-template-rows: 2;
+}
+
+#contributors-container img
+{
+    width: 100%;
+    border-radius: .7vh;
+    transition: .3s;
+}
+
+#contributors-container img:hover
+{
+    cursor: pointer;
+    background-color: lightgray;
 }
 
 #stemwijzer-startbutton
@@ -80,6 +126,32 @@ background-size: cover;
     background-color: blue;
 }
 
+
+
+/* Loading */
+
+#loading-modal
+{
+    background-color: white;
+    color: black;
+    width: 50%;
+    height: 60vh;
+    margin: 20vh auto;
+    padding: 5vh;
+    grid-template-columns: repeat(5, 20%);
+    grid-template-rows: repeat(5, 20%);
+}
+
+#loading-text
+{
+    text-align: center;
+    font-family: arial;
+    font-weight: bold;
+    margin: 0;
+    font-size: 3vh;
+    grid-area: 3/2/4/5;
+}
+
 #loading-icon
 {
     width: 10vh;
@@ -88,6 +160,18 @@ background-size: cover;
 }
 
 /* Stellingen */
+
+#stellingen-modal
+{
+    background-color: white;
+    color: black;
+    width: 50%;
+    height: 60vh;
+    margin: 20vh auto;
+    padding: 5vh;
+    grid-template-columns: repeat(5, 20%);
+    grid-template-rows: repeat(5, 20%);
+}
 
 #stelling-title
 {
@@ -103,4 +187,68 @@ background-size: cover;
     text-align: center;
     font-size: 2vh;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#skip-button
+{
+    grid-area: 5/2/6/5;
+    outline: none;
+    border: none;
+    width: 100%;
+    border-radius: 1vh;
+    height: 5vh;
+    font-size: 70%;
+}
+
+#disagree-button
+{
+    grid-area: 4/2/5/3;
+    outline: none;
+    border: none;
+    width: 70%;
+    border-radius: 1vh;
+    height: 5vh;
+    font-size: 70%;
+}
+
+#neither-button
+{
+    margin: 0 auto;
+    grid-area: 4/3/5/4;
+    outline: none;
+    border: none;
+    width: 70%;
+    border-radius: 1vh;
+    height: 5vh;
+    font-size: 70%;
+}
+
+#agree-button
+{
+    margin: 0 auto;
+    grid-area: 4/4/5/5;
+    outline: none;
+    border: none;
+    width: 70%;
+    border-radius: 1vh;
+    height: 5vh;
+    font-size: 70%;
+}
+
+#skip-button:hover, #previous-button:hover, #disagree-button:hover, #agree-button:hover, #neither-button:hover
+{
+    cursor: pointer;
+    background-color: gray;
+}
+
+#previous-button
+{
+    margin: 0 auto;
+    grid-area: 1/1/2/2;
+    outline: none;
+    border: none;
+    width: 70%;
+    border-radius: 1vh;
+    height: 5vh;
+    font-size: 70%;
 }

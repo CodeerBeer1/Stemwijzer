@@ -13,16 +13,47 @@
 
 <div id="page-container">
 
-    <div id="modal">
+    <div class="hide" id="intro-modal">
 
         <img id="stemwijzer-logo" src="img/stemwijzer-transparant.png">
         <p id="starText">Start de Stemwijzer</p>
         <button onclick="startStemwijzer()" id="stemwijzer-startbutton">Start</button>
 
-        <img class="hide" id="loading-icon" src="img/gif-loading.gif">
+    </div>
 
-        <p id="stelling-title">title</p>
-        <p class="hide" id="stelling-text"></p>
+    <div class="hide" id="loading-modal">
+
+        <p id="loading-text">Aan het laden...</p>
+        <img id="loading-icon" src="img/gif-loading.gif">
+
+    </div>
+
+    <div class="hide" id="stellingen-modal">
+
+        <p id="stelling-title"></p>
+        <p id="stelling-text"></p>
+
+        <button onclick="nextQuestion(-1)" id="disagree-button">Oneens</button>
+        <button onclick="nextQuestion(0)" id="neither-button">Geen van beide</button>
+        <button onclick="nextQuestion(1)" id="agree-button">Eens</button>
+        <button onclick="nextQuestion(null)" id="skip-button">Overslaan</button>
+        <button onclick="back()" id="previous-button">Terug</button>
+
+    </div>
+
+    <div class="grid" id="secondary-modal">
+
+        <p id="contributors-text">Deze partijen doen mee</p>
+        <div id="contributors-container">
+            <a href="https://www.vvd.nl/"><img src="img/partijen-logos/vvd.png"></a>
+            <a href="https://www.cda.nl/"><img src="img/partijen-logos/cda.png"></a>
+            <a href="https://www.fvd.nl/"><img src="img/partijen-logos/fvd.png"></a>
+            <a href="https://www.pvda.nl/"><img src="img/partijen-logos/pvda.png"></a>
+            <a href="https://www.pvdd.nl/"><img src="img/partijen-logos/pvdd.png"></a>
+            <a href="https://www.sp.nl/"><img src="img/partijen-logos/sp.png"></a>
+            <a href="https://www.50pluspartij.nl/"><img src="img/partijen-logos/50plus.png"></a>
+        </div>
+
     </div>
 
 </div>    
