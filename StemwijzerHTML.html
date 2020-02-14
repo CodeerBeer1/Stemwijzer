@@ -38,13 +38,15 @@
         <button onclick="nextQuestion(1)" id="agree-button">Eens</button>
         <button onclick="nextQuestion(null)" id="skip-button">Overslaan</button>
         <button onclick="back()" id="previous-button">Terug</button>
+        <button onclick="showOpinions()" id="opinion-button">Wat vinden de partijen?</button>
+        <img id="speech-balloon" src="img/speech-balloon.png">
 
     </div>
 
-    <div class="grid" id="secondary-modal">
+    <div class="grid" id="contributors-overview-modal">
 
         <p id="contributors-text">Deze partijen doen mee</p>
-        <div id="contributors-container">
+        <div class="grid" id="contributors-container">
             <a href="https://www.vvd.nl/"><img src="img/partijen-logos/vvd.png"></a>
             <a href="https://www.cda.nl/"><img src="img/partijen-logos/cda.png"></a>
             <a href="https://www.fvd.nl/"><img src="img/partijen-logos/fvd.png"></a>
@@ -61,6 +63,12 @@
             <a href=""></a>
         </div>
 
+    </div>
+
+    <div id="contributors-opinion-modal">
+
+        <p>Dit is zijn de meningen van alle partijen over deze stelling</p>
+        
     </div>
 
 </div>    

@@ -1,19 +1,40 @@
 var stemwijzerModal = document.getElementById("intro-modal");
 var loadingModal = document.getElementById("loading-modal");
-var secondaryModal = document.getElementById("secondary-modal");
+var contributorsOverviewModal = document.getElementById("contributors-overview-modal");
 var stellingenModal = document.getElementById("stellingen-modal");
+var contributorsOpinionModal = document.getElementById("contributors-opinion-modal");
+
 var stemwijzerLogo = document.getElementById("stemwijzer-logo");
 var stemwijzerStartext = document.getElementById("starText");
 var stemwijzerStartbutton = document.getElementById("stemwijzer-startbutton");
 var loadingGif = document.getElementById("loading-icon");
 var stellingTitle = document.getElementById("stelling-title");
 var stellingText = document.getElementById("stelling-text");
+
 var disagreeButton = document.getElementById("disagree-button");
 var neitherButton = document.getElementById("neither-button");
 var agreeButton = document.getElementById("agree-button");
 var previousButton = document.getElementById("previous-button");
 
+var contributorsContainer = document.getElementById("contributors-container");
+var contributorsText = document.getElementById("contributors-text");
+
 var choices = [];
+
+function partyOpinionLoad()
+{
+
+    for (a = 0; a < subjects[choices.length].parties[a]; a++)
+    {
+        var btn = document.createElement("button");
+        btn.setAttribute("btn"+a);
+        contributorsOpinionModal.appendChild(btn);
+        
+    }
+
+    return subjects[0].parties[2].name;
+     
+}
 
 function back()
 {
@@ -30,16 +51,25 @@ function back()
     
 }
 
+function showOpinions()
+{
+    contributorsOpinionModal.className = "grid";
+    partyOpinionLoad();
+}
+
 function intro()
 {
 
-    document.getElementById("stellingen-modal").className = "hide";
-    document.getElementById("intro-modal").className = "grid";
+    contributorsOpinionModal.className = "hide";
+    stellingenModal.className = "hide";
+    stemwijzerModal.className = "grid";
+
+    contributorsOverviewModal.className = "grid";
 }
 
 function startStemwijzer()
 {
-    secondaryModal.className = "hide";
+    contributorsOverviewModal.className = "hide";
     stemwijzerModal.className = "hide";
     loadingModal.className = "grid";
 

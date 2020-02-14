@@ -45,12 +45,24 @@ background-size: cover;
     grid-template-rows: repeat(5, 20%);
 }
 
-#secondary-modal
+#contributors-overview-modal
 {
     background-color: white;
     color: black;
     width: 50%;
-    height: 60vh;
+    min-height: 60vh;
+    margin: 20vh auto;
+    padding: 5vh;
+    grid-template-columns: repeat(5, 20%);
+    grid-template-rows: repeat(5, 20%);
+}
+
+#contributors-opinion-modal
+{
+    background-color: white;
+    color: black;
+    width: 50%;
+    min-height: 60vh;
     margin: 20vh auto;
     padding: 5vh;
     grid-template-columns: repeat(5, 20%);
@@ -233,6 +245,31 @@ background-size: cover;
     border-radius: 1vh;
     height: 5vh;
     font-size: 70%;
+}
+
+#opinion-button
+{
+    outline: none;
+    border: none;
+    background-color: white;
+    font-size: 1.5vh;
+    grid-area: 1/4/2/5;
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: center;
+}
+
+#opinion-button:hover
+{
+    cursor: pointer;
+    color: lightskyblue;
+}
+
+#speech-balloon
+{
+    grid-area: 1/5/2/6;
+    width: 75%;  
+    margin: 0 auto;  
 }
 
 #skip-button:hover, #previous-button:hover, #disagree-button:hover, #agree-button:hover, #neither-button:hover
