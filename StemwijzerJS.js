@@ -90,7 +90,6 @@ function back()
     }
     else
     {
-        console.log(choices);
         choices.pop();
         questionSetup();
         progressBarData.shrink();
@@ -144,7 +143,6 @@ function nextQuestion(value)
     
     if (choices.length < subjects.length -1)
     {
-        console.log(choices);
         choices.push(value);
         questionSetup();
         progressBarData.grow();
