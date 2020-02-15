@@ -22,6 +22,13 @@ var contributorsText = document.getElementById("contributors-text");
 var choices = [];
 var theBool = false;
 
+var progressBar = 
+{
+
+
+    
+}
+
 function partyOpinionLoad()
 {
     contributorsOpinionModal.className = "grid";
