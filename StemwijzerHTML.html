@@ -8,8 +8,17 @@
 
 
 
-<body>
+<body id="body" class="show">
 
+    <div class="hide" id="opinion-popup-modal">
+        
+    <div id="real-opinion">
+        <p id="position">Positie: </p>
+        <p id="opinion">Mening: </p>
+        <button onclick="closeActualOpinion()">Terug</button>
+    </div>
+
+    </div>
 
 <div id="page-container">
 
@@ -69,14 +78,14 @@
 
     <div id="contributors-opinion-modal">
 
-        <p>Dit is zijn de meningen van alle partijen over deze stelling</p>
+        <p id="opinion-text">Dit is zijn de meningen van alle partijen over deze stelling</p>
         
     </div>
-
+   
     
 
-</div>    
-   
+</div>  
+    
 </body>
 
 <script src="StemwijzerData.js"></script>

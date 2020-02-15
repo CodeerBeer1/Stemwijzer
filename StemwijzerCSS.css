@@ -15,9 +15,12 @@
     display: grid;
 }
 
+.scroll-lock
+{
+    overflow: hidden;
+}
+
 /* Start-Up */
-
-
 
 body
 {
@@ -31,6 +34,7 @@ background-size: cover;
 #pagecontainer
 {
     width: 100%;
+    z-index: 1;
 }
 
 #intro-modal
@@ -46,18 +50,6 @@ background-size: cover;
 }
 
 #contributors-overview-modal
-{
-    background-color: white;
-    color: black;
-    width: 50%;
-    min-height: 60vh;
-    margin: 20vh auto;
-    padding: 5vh;
-    grid-template-columns: repeat(5, 20%);
-    grid-template-rows: repeat(5, 20%);
-}
-
-#contributors-opinion-modal
 {
     background-color: white;
     color: black;
@@ -137,8 +129,6 @@ background-size: cover;
     cursor: pointer;
     background-color: blue;
 }
-
-
 
 /* Loading */
 
@@ -247,6 +237,18 @@ background-size: cover;
     font-size: 70%;
 }
 
+#contributors-opinion-modal
+{
+    background-color: white;
+    color: black;
+    width: 50%;
+    min-height: 60vh;
+    margin: 20vh auto;
+    padding: 5vh;
+    grid-template-columns: repeat(5, 20%);
+    grid-template-rows: repeat(6, 16.6%);
+}
+
 #opinion-button
 {
     outline: none;
@@ -295,7 +297,7 @@ background-size: cover;
     transition: .5s;
     position: relative;
     left: 20%;
-    font-family: cursive;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 3vh;
     text-align: center;
     margin-top: 4vh;
@@ -303,4 +305,71 @@ background-size: cover;
     height: 5vh;
     width: 0;
     background-color: lightskyblue;
+}
+
+#opinion-text
+{
+    text-align: center;
+    grid-area: 1/1/2/6;
+    font-size: 2.5vh;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+.party-opinion-button
+{
+    margin: 0 auto;
+    outline: none;
+    border: none;
+    width: 70%;
+    border-radius: 1vh;
+    height: 5vh;
+    font-size: 1vh;
+}
+
+.party-opinion-button:hover
+{
+    cursor: pointer;
+    background-color: grey;
+}
+
+#opinion-popup-modal
+{
+    z-index: 2;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5)
+}
+
+#real-opinion
+{
+    text-align: center;
+    margin: 20vh auto;
+    width: 70%;
+    height: 50vh;
+    background-color: white;
+    z-index: 2;
+    padding: 5vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#opinion-popup-modal button
+{
+    margin-top: 20vh;
+    text-align: center;
+    outline: none;
+    border: none;
+    width: 50%;
+    border-radius: 1vh;
+    height: 7vh;
+    font-size: 2vh;
+}
+
+#opinion-popup-modal button:hover
+{
+    cursor: pointer;
+    background-color: grey;
 }

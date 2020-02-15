@@ -1,8 +1,10 @@
+var body = document.getElementById("body");
 var stemwijzerModal = document.getElementById("intro-modal");
 var loadingModal = document.getElementById("loading-modal");
 var contributorsOverviewModal = document.getElementById("contributors-overview-modal");
 var stellingenModal = document.getElementById("stellingen-modal");
 var contributorsOpinionModal = document.getElementById("contributors-opinion-modal");
+var opinionPopupModal = document.getElementById("opinion-popup-modal");
 
 var stemwijzerLogo = document.getElementById("stemwijzer-logo");
 var stemwijzerStartext = document.getElementById("starText");
@@ -47,17 +49,37 @@ var progressBarData =
 
 }
 
+function loadActualOpinion(theParty)
+{
+    body.className = "scroll-lock";
+    opinionPopupModal.className = "show";
+    var partyposition = document.createTextNode(subjects[choices.length].parties[theParty].position);
+    document.getElementById("position").appendChild(partyposition);
+    var partyopinion = document.createTextNode(subjects[choices.length].parties[theParty].opinion);
+    document.getElementById("opinion").appendChild(partyopinion);
+}
+
+function closeActualOpinion()
+{
+    body.className = "show";
+    opinionPopupModal.className = "hide";
+    position.innerHTML = "";
+    opinion.innerHTML = "";
+}
+
 function partyOpinionLoad()
 {
     contributorsOpinionModal.className = "grid";
     theBool = true;
     var amountParties = subjects[choices.length].parties.length;
-    for (a = 0; a < amountParties; a++)
+    for (a = 0; a <= amountParties; a++)
     {
         var btn = document.createElement("button");
         btn.setAttribute("id", "btn"+a);
+        btn.className = "party-opinion-button";
+        btn.setAttribute("onclick", "loadActualOpinion("+a+")");
       
-       var partyname = document.createTextNode(subjects[choices.length].parties[a].name);
+        var partyname = document.createTextNode(subjects[choices.length].parties[a].name);
        btn.appendChild(partyname);
         contributorsOpinionModal.appendChild(btn);
     }
