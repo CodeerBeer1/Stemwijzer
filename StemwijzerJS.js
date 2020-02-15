@@ -20,24 +20,44 @@ var contributorsContainer = document.getElementById("contributors-container");
 var contributorsText = document.getElementById("contributors-text");
 
 var choices = [];
+var theBool = false;
 
 function partyOpinionLoad()
 {
-
-    for (a = 0; a < subjects[choices.length].parties[a]; a++)
+    contributorsOpinionModal.className = "grid";
+    theBool = true;
+    var amountParties = subjects[choices.length].parties.length;
+    for (a = 0; a < amountParties; a++)
     {
         var btn = document.createElement("button");
-        btn.setAttribute("btn"+a);
+        btn.setAttribute("id", "btn"+a);
+      
+       var partyname = document.createTextNode(subjects[choices.length].parties[a].name);
+       btn.appendChild(partyname);
         contributorsOpinionModal.appendChild(btn);
-        
+    }
+}
+
+function partyOpinionClose()
+{
+    contributorsOpinionModal.className = "hide";
+    theBool = false;
+
+    var amountParties = subjects[choices.length].parties.length;
+    for (a = 0; a < amountParties; a++)
+    {
+        document.getElementById("btn"+ a).remove();
     }
 
-    return subjects[0].parties[2].name;
-     
 }
 
 function back()
 {
+    if (theBool == true)
+    {
+        partyOpinionClose();
+    }
+    
 
     if (choices.length == 0)
     {
@@ -53,8 +73,18 @@ function back()
 
 function showOpinions()
 {
-    contributorsOpinionModal.className = "grid";
-    partyOpinionLoad();
+    
+    if (theBool == false)
+    {
+        
+        
+        partyOpinionLoad();
+    }
+
+    else if (theBool == true)
+        {
+            partyOpinionClose();
+        }
 }
 
 function intro()
@@ -73,11 +103,15 @@ function startStemwijzer()
     stemwijzerModal.className = "hide";
     loadingModal.className = "grid";
 
-    setTimeout(function() {questionSetup()}, 2000);
+   setTimeout(function() {questionSetup()}, 1);
 }
 
 function nextQuestion(value)
 {
+    if (theBool == true)
+    {
+        partyOpinionClose();
+    }
     choices.push(value);
     questionSetup();
     
