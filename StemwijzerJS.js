@@ -18,15 +18,33 @@ var previousButton = document.getElementById("previous-button");
 
 var contributorsContainer = document.getElementById("contributors-container");
 var contributorsText = document.getElementById("contributors-text");
+var progressBar =  document.getElementById("progress-bar");
 
 var choices = [];
 var theBool = false;
 
-var progressBar = 
+var progressBarData = 
 {
 
+    width: 0,
+    fraction: this.width =+ 61/subjects.length,
 
+    grow: function()
+    {
+        this.width = this.width + this.fraction;
+        progressBar.style.width = this.width + "%";
+        progressBar.innerHTML = Math.round(this.width * 1.7) + "%";
+    },
+
+    shrink: function()
+    {
+        this.width = this.width - this.fraction;
+        progressBar.style.width = this.width + "%";
+        progressBar.innerHTML = Math.round(this.width * 1.7) + "%";
+    }
     
+
+
 }
 
 function partyOpinionLoad()
@@ -72,9 +90,13 @@ function back()
     }
     else
     {
+        console.log(choices);
         choices.pop();
         questionSetup();
+        progressBarData.shrink();
     }
+
+    
     
 }
 
@@ -83,8 +105,6 @@ function showOpinions()
     
     if (theBool == false)
     {
-        
-        
         partyOpinionLoad();
     }
 
@@ -96,7 +116,8 @@ function showOpinions()
 
 function intro()
 {
-
+    progressBar.className = "hide";
+    progressBarData.width = 0;
     contributorsOpinionModal.className = "hide";
     stellingenModal.className = "hide";
     stemwijzerModal.className = "grid";
@@ -110,7 +131,7 @@ function startStemwijzer()
     stemwijzerModal.className = "hide";
     loadingModal.className = "grid";
 
-   setTimeout(function() {questionSetup()}, 1);
+   setTimeout(function() {questionSetup()}, 1500);
 }
 
 function nextQuestion(value)
@@ -119,8 +140,15 @@ function nextQuestion(value)
     {
         partyOpinionClose();
     }
-    choices.push(value);
-    questionSetup();
+    
+    
+    if (choices.length < subjects.length -1)
+    {
+        console.log(choices);
+        choices.push(value);
+        questionSetup();
+        progressBarData.grow();
+    }
     
 }
 
@@ -129,6 +157,7 @@ function questionSetup()
 
     loadingModal.className = "hide";
     stellingenModal.className = "grid";
+    progressBar.className = "show";
 
     stellingTitle.innerHTML = subjects[choices.length].title;
     stellingText.innerHTML = subjects[choices.length].statement;

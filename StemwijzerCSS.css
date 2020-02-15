@@ -289,3 +289,18 @@ background-size: cover;
     height: 5vh;
     font-size: 70%;
 }
+
+#progress-bar
+{
+    transition: .5s;
+    position: relative;
+    left: 20%;
+    font-family: cursive;
+    font-size: 3vh;
+    text-align: center;
+    margin-top: 4vh;
+    margin-right: auto;
+    height: 5vh;
+    width: 0;
+    background-color: lightskyblue;
+}
