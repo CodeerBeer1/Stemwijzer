@@ -15,6 +15,11 @@
     display: grid;
 }
 
+.inline
+{
+    display: inline;
+}
+
 .scroll-lock
 {
     overflow: hidden;
@@ -92,14 +97,48 @@ background-size: cover;
 {
     grid-area: 2/1/3/6;
     display: grid;
-    grid-gap: 3px;
-    grid-template-columns: repeat(11, 8.45%);
+    grid-template-columns: repeat(12, 8.35%);
     grid-template-rows: 2;
+}
+
+#non-contributors-text
+{
+    text-align: center;
+    font-family: arial;
+    font-weight: bold;
+    margin: 0;
+    font-size: 3vh;
+    grid-area: 4/2/5/5;
+}
+
+#non-contributors-container
+{
+    grid-area: 5/1/6/6;
+    display: grid;
+    grid-template-columns: repeat(12, 8.35%);
+    grid-template-rows: 2;
+}
+
+#non-contributors-container img
+{
+    padding: 10px;
+    width: 35px;
+    height: 35px;
+    border-radius: .7vh;
+    transition: .3s;
+}
+
+#non-contributors-container img:hover
+{
+    cursor: pointer;
+    background-color: rgb(255, 0, 0);
 }
 
 #contributors-container img
 {
-    width: 100%;
+    padding: 10px;
+    width: 35px;
+    height: 35px;
     border-radius: .7vh;
     transition: .3s;
 }
@@ -107,7 +146,7 @@ background-size: cover;
 #contributors-container img:hover
 {
     cursor: pointer;
-    background-color: lightgray;
+    background-color: rgb(0, 153, 255);
 }
 
 #stemwijzer-startbutton
@@ -200,6 +239,8 @@ background-size: cover;
     border-radius: 1vh;
     height: 5vh;
     font-size: 70%;
+    background-color: black;
+    color: white;
 }
 
 #disagree-button
@@ -211,6 +252,8 @@ background-size: cover;
     border-radius: 1vh;
     height: 5vh;
     font-size: 70%;
+    background-color: black;
+    color: white;
 }
 
 #neither-button
@@ -223,6 +266,8 @@ background-size: cover;
     border-radius: 1vh;
     height: 5vh;
     font-size: 70%;
+    background-color: black;
+    color: white;
 }
 
 #agree-button
@@ -235,6 +280,8 @@ background-size: cover;
     border-radius: 1vh;
     height: 5vh;
     font-size: 70%;
+    background-color: black;
+    color: white;
 }
 
 #contributors-opinion-modal
@@ -242,11 +289,32 @@ background-size: cover;
     background-color: white;
     color: black;
     width: 50%;
-    min-height: 60vh;
     margin: 20vh auto;
     padding: 5vh;
     grid-template-columns: repeat(5, 20%);
-    grid-template-rows: repeat(6, 16.6%);
+    grid-template-rows: repeat(6, 10%);
+}
+
+#agree-opinions
+{
+    grid-area: 2/1/6/2;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#disagree-opinions
+{
+    grid-area: 2/5/6/6;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#neither-opinions
+{
+    font-size: 1.5vh;
+    grid-area: 2/3/6/4;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 #opinion-button
@@ -274,13 +342,13 @@ background-size: cover;
     margin: 0 auto;  
 }
 
-#skip-button:hover, #previous-button:hover, #disagree-button:hover, #agree-button:hover, #neither-button:hover
+#skip-button:hover, .previous-button:hover, #disagree-button:hover, #agree-button:hover, #neither-button:hover
 {
     cursor: pointer;
-    background-color: gray;
+    background-color: rgb(0, 191, 255);
 }
 
-#previous-button
+.previous-button
 {
     margin: 0 auto;
     grid-area: 1/1/2/2;
@@ -290,6 +358,8 @@ background-size: cover;
     border-radius: 1vh;
     height: 5vh;
     font-size: 70%;
+    background-color: black;
+    color: white;
 }
 
 #progress-bar
@@ -314,6 +384,7 @@ background-size: cover;
     font-size: 2.5vh;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
+    height: 50%;
 }
 
 .party-opinion-button
@@ -321,10 +392,11 @@ background-size: cover;
     margin: 0 auto;
     outline: none;
     border: none;
-    width: 70%;
+    width: 100%;
     border-radius: 1vh;
     height: 5vh;
     font-size: 1vh;
+    margin-top: 2vh;
 }
 
 .party-opinion-button:hover
@@ -372,4 +444,26 @@ background-size: cover;
 {
     cursor: pointer;
     background-color: grey;
+}
+
+/* Result */
+
+#result-modal
+{
+    background-color: white;
+    color: black;
+    width: 50%;
+    height: 60vh;
+    margin: 20vh auto;
+    padding: 5vh;
+    grid-template-columns: repeat(5, 20%);
+    grid-template-rows: repeat(5, 20%);
+}
+
+#result-text
+{
+    grid-area: 2/1/3/6;
+    text-align: center;
+    font-size: 3vh;
+    font-family: Arial, Helvetica, sans-serif;    
 }

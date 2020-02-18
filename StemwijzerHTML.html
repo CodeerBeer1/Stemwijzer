@@ -13,8 +13,8 @@
     <div class="hide" id="opinion-popup-modal">
         
     <div id="real-opinion">
-        <p id="position">Positie: </p>
-        <p id="opinion">Mening: </p>
+        <p id="position"></p>
+        <p id="opinion"></p>
         <button onclick="closeActualOpinion()">Terug</button>
     </div>
 
@@ -48,7 +48,7 @@
         <button onclick="nextQuestion(0)" id="neither-button">Geen van beide</button>
         <button onclick="nextQuestion(1)" id="agree-button">Eens</button>
         <button onclick="nextQuestion(null)" id="skip-button">Overslaan</button>
-        <button onclick="back()" id="previous-button">Terug</button>
+        <button onclick="back()" class="previous-button">Terug</button>
         <button onclick="showOpinions()" id="opinion-button">Wat vinden de partijen?</button>
         <img id="speech-balloon" src="img/speech-balloon.png">
 
@@ -69,16 +69,50 @@
             <a href=""><img src="img/partijen-logos/nieuwewegen.png"></a>
             <a href="https://www.pvv.nl"><img src="img/partijen-logos/pvv.png"></a>
             <a href="https://www.d66.nl"><img src="img/partijen-logos/d66.png"></a>
-            <a href=""></a>
-            <a href=""></a>
-            <a href=""></a>
+            <a href="https://www.christenunie.nl"><img src="img/partijen-logos/christenunie.png"></a>
+            <a href="https://www.bewegingdenk.nl"><img src="img/partijen-logos/denk.png"></a>
+            <a href="https://www.sgp.nl"><img src="img/partijen-logos/sgp.png"></a>
+            <a href="http://www.artikel1.org/"><img src="img/partijen-logos/a1.png"></a>
+            <a href="https://piratenpartij.nl/"><img src="img/partijen-logos/pp.png"></a>
+            <a href="http://www.ondernemerspartij.nl/"><img src="img/partijen-logos/op.png"></a>
+            <a href="http://www.deburgerbeweging.nl/"><img src="img/partijen-logos/dbb.jpg"></a>
+            <a href="http://lokaalindekamer.nl/"><img src="img/partijen-logos/lidk.png"></a>
+            <a href="https://www.vnl.nu/"><img src="img/partijen-logos/vnl.png"></a>
+            <a href="https://www.vrijzinnigepartij.nl"><img src="img/partijen-logos/vp.jpg"></a>
+            <a href="http://www.nietstemmers.nl/"><img src="img/partijen-logos/ns.png"></a>
+            <a href="https://stemlp.nl/"><img src="img/partijen-logos/lp.png"></a>
         </div>
-
+        <p id="non-contributors-text">Deze partijen doen niet mee</p>
+        <div class="grid" id="non-contributors-container">
+            <a href="http://www.jezusleeft.nl/"><img src="img/partijen-logos/jl.png"></a>
+            <a href="www.vrijedemocratischepartij.nl/"><img src="img/partijen-logos/vdp.png"></a>
+            <a href="https://www.mensenspirit"><img src="img/partijen-logos/mp.png"></a>
+            <a href="https://www.geenpijl.nl"><img src="img/partijen-logos/gp.png"></a>
+            <a href="https://www.stemnl.nl."><img src="img/partijen-logos/sn.png"></a>
+        </div>
     </div>
 
-    <div id="contributors-opinion-modal">
+    <div class="hide" id="contributors-opinion-modal">
 
         <p id="opinion-text">Dit is zijn de meningen van alle partijen over deze stelling</p>
+        <div id="agree-opinions">
+            Eens
+        </div>
+
+        <div id="neither-opinions">
+            Geen van beide
+        </div>
+
+        <div id="disagree-opinions">
+            Oneens
+        </div>
+        
+    </div>
+
+    <div class="hide" id="result-modal">
+
+    <button onclick="questionSetup()" class="previous-button">Terug</button>
+        <p id="result-text">Welke partijen wilt u meenemen in het resultaat?</p>
         
     </div>
    

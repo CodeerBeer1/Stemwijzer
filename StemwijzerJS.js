@@ -5,6 +5,7 @@ var contributorsOverviewModal = document.getElementById("contributors-overview-m
 var stellingenModal = document.getElementById("stellingen-modal");
 var contributorsOpinionModal = document.getElementById("contributors-opinion-modal");
 var opinionPopupModal = document.getElementById("opinion-popup-modal");
+var resultModal = document.getElementById("result-modal");
 
 var stemwijzerLogo = document.getElementById("stemwijzer-logo");
 var stemwijzerStartext = document.getElementById("starText");
@@ -21,6 +22,10 @@ var previousButton = document.getElementById("previous-button");
 var contributorsContainer = document.getElementById("contributors-container");
 var contributorsText = document.getElementById("contributors-text");
 var progressBar =  document.getElementById("progress-bar");
+
+var agreeOpinions = document.getElementById("agree-opinions");
+var disagreeOpinions = document.getElementById("disagree-opinions");
+var neitherOpinions = document.getElementById("neither-opinions");
 
 var choices = [];
 var theBool = false;
@@ -53,10 +58,31 @@ function loadActualOpinion(theParty)
 {
     body.className = "scroll-lock";
     opinionPopupModal.className = "show";
+
     var partyposition = document.createTextNode(subjects[choices.length].parties[theParty].position);
-    document.getElementById("position").appendChild(partyposition);
+    var p = document.getElementById("position").appendChild(partyposition);
+
     var partyopinion = document.createTextNode(subjects[choices.length].parties[theParty].opinion);
     document.getElementById("opinion").appendChild(partyopinion);
+    var p = document.getElementById("position").appendChild(partyposition);
+    
+    if (partyposition.textContent == "pro")
+    {
+        p.textContent = "Eens";
+        
+    }
+    
+    if (partyposition.textContent == "contra")
+    {
+        p.textContent = "Oneens";
+        
+    }
+
+    if (partyposition.textContent == "none")
+    {
+        p.textContent = "Geen van beide";
+        
+    }
 }
 
 function closeActualOpinion()
@@ -81,8 +107,32 @@ function partyOpinionLoad()
       
         var partyname = document.createTextNode(subjects[choices.length].parties[a].name);
        btn.appendChild(partyname);
-        contributorsOpinionModal.appendChild(btn);
+        
+
+       var partyposition = document.createTextNode(subjects[choices.length].parties[a].position);
+    
+
+    if (partyposition.textContent == "pro")
+    {
+        
+        agreeOpinions.appendChild(btn);
     }
+    
+    if (partyposition.textContent == "contra")
+    {
+
+        disagreeOpinions.appendChild(btn);
+    }
+
+    if (partyposition.textContent == "none")
+    {
+        
+        neitherOpinions.appendChild(btn);
+    }
+
+    
+    }
+
 }
 
 function partyOpinionClose()
@@ -110,14 +160,12 @@ function back()
     {
         intro();
     }
-    else
+    else if (choices.length <= subjects.length)
     {
         choices.pop();
         questionSetup();
         progressBarData.shrink();
     }
-
-    
     
 }
 
@@ -157,6 +205,8 @@ function startStemwijzer()
 
 function nextQuestion(value)
 {
+
+
     if (theBool == true)
     {
         partyOpinionClose();
@@ -169,19 +219,35 @@ function nextQuestion(value)
         questionSetup();
         progressBarData.grow();
     }
+
+    else if (choices.length >= subjects.length -1)
+    {
+
+        resultSetup();
+        
+    }
     
 }
 
 function questionSetup()
 {
-
+    console.log(choices);
+    resultModal.className = "hide";
     loadingModal.className = "hide";
     stellingenModal.className = "grid";
     progressBar.className = "show";
 
     stellingTitle.innerHTML = subjects[choices.length].title;
     stellingText.innerHTML = subjects[choices.length].statement;
+    
+}
 
+function resultSetup()
+{
+    contributorsOpinionModal.className = "hide";
+    stellingenModal.className = "hide";
+
+    resultModal.className = "grid";
 }
 
 intro();
