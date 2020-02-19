@@ -28,10 +28,10 @@ var agreeOpinions = document.getElementById("agree-opinions");
 var disagreeOpinions = document.getElementById("disagree-opinions");
 var neitherOpinions = document.getElementById("neither-opinions");
 
-var choice = false;
+var yourParties = [];
 var choices = [];
 var theBool = false;
-var choosingParties = false;
+var choice = false;
 
 var progressBarData = 
 {
@@ -296,22 +296,24 @@ for (a = 0; a < amountParties; a++)
 
 function chooseParty(partytje)
 {
-    
     if (choice == false)
     {
         choice = true;
         document.getElementById("partyy"+partytje).style.backgroundColor = "chartreuse";
+        yourParties.push(parties[partytje].name)
         
     }
 
    else if (choice == true)
-        {
-            var css = ".partyy:hover { cursor: pointer; background-color: rgb(0, 191, 255) }";
+    {
+        var css = ".partyy:hover { cursor: pointer; background-color: rgb(0, 191, 255) }";
         choice = false;
         document.getElementById("partyy"+partytje).style.backgroundColor = "black";
         document.getElementById("partyy"+partytje).style = css;
+        yourParties.splice(partytje, 1)
+        console.log(yourParties)
 
-        }
+    }
 
 }
 
