@@ -22,13 +22,16 @@ var previousButton = document.getElementById("previous-button");
 var contributorsContainer = document.getElementById("contributors-container");
 var contributorsText = document.getElementById("contributors-text");
 var progressBar =  document.getElementById("progress-bar");
+var partyContainer = document.getElementById("party-container");
 
 var agreeOpinions = document.getElementById("agree-opinions");
 var disagreeOpinions = document.getElementById("disagree-opinions");
 var neitherOpinions = document.getElementById("neither-opinions");
 
+var choice = false;
 var choices = [];
 var theBool = false;
+var choosingParties = false;
 
 var progressBarData = 
 {
@@ -150,6 +153,19 @@ function partyOpinionClose()
 
 function back()
 {
+    if (endPartyChoose == true)
+    {
+        endPartyChoose = false;
+        
+        var amountParties = parties.length;
+
+        for (a = 0; a < amountParties; a++)
+        {
+        
+            remove(party);
+        
+        }
+    }
     if (theBool == true)
     {
         partyOpinionClose();
@@ -248,6 +264,55 @@ function resultSetup()
     stellingenModal.className = "hide";
 
     resultModal.className = "grid";
+
+    endPartyChoose()
+
+}
+
+function endPartyChoose()
+{
+
+    endPartyChoose = true;
+var amountParties = parties.length;
+
+for (a = 0; a < amountParties; a++)
+{
+
+    var partyText = document.createTextNode(parties[a].name);
+    var party = document.createElement("button");
+    partyContainer.appendChild(party);
+    party.appendChild(partyText);
+    party.setAttribute("class", "partyy");
+    party.setAttribute("id", "partyy"+a);
+    party.setAttribute("onclick", "chooseParty("+a+")");
+    party.setAttribute("onmouseover", function()
+    {
+        party.style.backgroundColor = "background-color: rgb(0, 191, 255)";
+    });
+
+}
+
+}
+
+function chooseParty(partytje)
+{
+    
+    if (choice == false)
+    {
+        choice = true;
+        document.getElementById("partyy"+partytje).style.backgroundColor = "chartreuse";
+        
+    }
+
+   else if (choice == true)
+        {
+            var css = ".partyy:hover { cursor: pointer; background-color: rgb(0, 191, 255) }";
+        choice = false;
+        document.getElementById("partyy"+partytje).style.backgroundColor = "black";
+        document.getElementById("partyy"+partytje).style = css;
+
+        }
+
 }
 
 intro();
