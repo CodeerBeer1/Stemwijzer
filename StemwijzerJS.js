@@ -31,7 +31,6 @@ var neitherOpinions = document.getElementById("neither-opinions");
 var yourParties = [];
 var choices = [];
 var theBool = false;
-var choice = false;
 
 var progressBarData = 
 {
@@ -260,6 +259,7 @@ function questionSetup()
 
 function resultSetup()
 {
+
     contributorsOpinionModal.className = "hide";
     stellingenModal.className = "hide";
 
@@ -271,47 +271,47 @@ function resultSetup()
 
 function endPartyChoose()
 {
-
+    var tel = 0;
     endPartyChoose = true;
-var amountParties = parties.length;
+    var amountParties = parties.length;
 
 for (a = 0; a < amountParties; a++)
 {
-
+tel++;
     var partyText = document.createTextNode(parties[a].name);
     var party = document.createElement("button");
     partyContainer.appendChild(party);
     party.appendChild(partyText);
-    party.setAttribute("class", "partyy");
-    party.setAttribute("id", "partyy"+a);
-    party.setAttribute("onclick", "chooseParty("+a+")");
-    party.setAttribute("onmouseover", function()
-    {
-        party.style.backgroundColor = "background-color: rgb(0, 191, 255)";
-    });
 
+    party.className = "partyy";
+    party.id = "partyy"+a;
+    party.setAttribute("onclick", "chooseParty("+a+")");
+     
 }
+
+    volgende.onclick = function()
+        {
+            var party = document.getElementById("partyy"+tel)
+            yourParties.push(party.textContent);
+        }
 
 }
 
 function chooseParty(partytje)
 {
-    if (choice == false)
+
+    var party = document.getElementById("partyy"+partytje);
+    if (party.className != "party-chosen")
     {
-        choice = true;
-        document.getElementById("partyy"+partytje).style.backgroundColor = "chartreuse";
-        yourParties.push(parties[partytje].name)
-        
+
+        party.className = "party-chosen";
+
     }
 
-   else if (choice == true)
+    else if (party.className == "party-chosen")
     {
-        var css = ".partyy:hover { cursor: pointer; background-color: rgb(0, 191, 255) }";
-        choice = false;
-        document.getElementById("partyy"+partytje).style.backgroundColor = "black";
-        document.getElementById("partyy"+partytje).style = css;
-        yourParties.splice(partytje, 1)
-        console.log(yourParties)
+    
+        party.className = "partyy";
 
     }
 
