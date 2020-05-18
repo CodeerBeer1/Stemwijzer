@@ -6,6 +6,7 @@ var stellingenModal = document.getElementById("stellingen-modal");
 var contributorsOpinionModal = document.getElementById("contributors-opinion-modal");
 var opinionPopupModal = document.getElementById("opinion-popup-modal");
 var resultModal = document.getElementById("result-modal");
+var rankingModal = document.getElementById("ranking-modal");
 
 var stemwijzerLogo = document.getElementById("stemwijzer-logo");
 var stemwijzerStartext = document.getElementById("starText");
@@ -28,9 +29,16 @@ var agreeOpinions = document.getElementById("agree-opinions");
 var disagreeOpinions = document.getElementById("disagree-opinions");
 var neitherOpinions = document.getElementById("neither-opinions");
 
+var FirstChoice = document.getElementById("nr1");
+var SecondChoice = document.getElementById("nr2");
+var ThirdChoice = document.getElementById("nr3");
+
+var multiplierButton = document.getElementById("multiplier-button");
+
 var yourParties = [];
 var choices = [];
 var theBool = false;
+var partyPoints = [];
 
 var progressBarData = 
 {
@@ -51,8 +59,6 @@ var progressBarData =
         progressBar.style.width = this.width + "%";
         progressBar.innerHTML = Math.round(this.width * 1.7) + "%";
     }
-    
-
 
 }
 
@@ -71,7 +77,6 @@ function loadActualOpinion(theParty)
     if (partyposition.textContent == "pro")
     {
         p.textContent = "Eens";
-        
     }
     
     if (partyposition.textContent == "contra")
@@ -230,7 +235,8 @@ function nextQuestion(value)
     
     if (choices.length < subjects.length -1)
     {
-        choices.push(value);
+        
+        choices.push(data = {question:choices.length+1, answer: value, multiplier: 1});
         questionSetup();
         progressBarData.grow();
     }
@@ -252,6 +258,11 @@ function questionSetup()
     stellingenModal.className = "grid";
     progressBar.className = "show";
 
+    multiplierButton.onclick = function()
+    {
+            multiplierButton.style = "rgb(0, 191, 255)";
+    }
+
     stellingTitle.innerHTML = subjects[choices.length].title;
     stellingText.innerHTML = subjects[choices.length].statement;
     
@@ -271,13 +282,12 @@ function resultSetup()
 
 function endPartyChoose()
 {
-    var tel = 0;
     endPartyChoose = true;
     var amountParties = parties.length;
 
-for (a = 0; a < amountParties; a++)
+
+for (a = 0; a < amountParties; a++) 
 {
-tel++;
     var partyText = document.createTextNode(parties[a].name);
     var party = document.createElement("button");
     partyContainer.appendChild(party);
@@ -286,13 +296,22 @@ tel++;
     party.className = "partyy";
     party.id = "partyy"+a;
     party.setAttribute("onclick", "chooseParty("+a+")");
+
      
 }
-
     volgende.onclick = function()
         {
-            var party = document.getElementById("partyy"+tel)
-            yourParties.push(party.textContent);
+           
+            for (o = 0; o < amountParties; o++)
+            { 
+                var party = document.getElementById("partyy"+o);
+                if (party.className == "party-chosen")
+                {
+                    yourParties.push(party.textContent);
+                    
+                }
+            }
+          showResult();
         }
 
 }
@@ -317,4 +336,23 @@ function chooseParty(partytje)
 
 }
 
+function showResult()
+{
+    resultModal.className = "hide";
+    rankingModal.className = "grid";
+    points()
+}
+
+function points()
+{
+    for(o = 0; o < parties.length; o++)
+    {
+        if(subjects[o].parties[o].position == choices[o].answer)
+    {
+        partyPoints.push({party: subjects[o].parties[o].name, pointss: +1});
+        alert(partyPoints[o].party + partyPoints[o].pointss);
+    }
+    }
+    
+}
 intro();

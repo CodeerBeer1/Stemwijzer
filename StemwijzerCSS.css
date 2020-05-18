@@ -309,6 +309,22 @@ background-size: cover;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+#multiplier-button
+{
+    grid-area: 5/5;
+    border-radius: 200px;
+    background-color: black;
+    color: white;
+    border: none;
+    margin: 10% 10%;
+    outline: none;
+}
+
+#multiplier-button:hover
+{
+    background-color: rgb(0, 191, 255);
+}
+
 #neither-opinions
 {
     font-size: 1.5vh;
@@ -523,4 +539,25 @@ background-size: cover;
     font-size: 70%;
     background-color: black;
     color: white;
+}
+
+/* Ranking */
+
+#ranking-modal
+{
+    background-color: white;
+    color: black;
+    width: 50%;
+    height: 60vh;
+    margin: 20vh auto;
+    padding: 5vh;
+    grid-template-columns: repeat(3, 33.3%);
+    grid-template-rows: repeat(5, 20%);
+}
+
+#ranking-modal div
+{
+    text-align: center;
+    font-size: 30;
+    font-family: Arial, Helvetica, sans-serif;
 }
