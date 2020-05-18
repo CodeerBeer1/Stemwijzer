@@ -354,19 +354,35 @@ function showResult()
 {
     resultModal.className = "hide";
     rankingModal.className = "grid";
-    points()
+    points();
 }
 
 function points()
 {
-    for(o = 0; o < parties.length; o++)
+   
+    for(p = 0; p < subjects.length; p++)
     {
-        if(subjects[o].parties[o].position == choices[o].answer)
-    {
-        partyPoints.push({party: subjects[o].parties[o].name, pointss: +1});
-        alert(partyPoints[o].party + partyPoints[o].pointss);
-    }
+        partyPoints.push({question: p+1, parties: {} });
+        for(a = 0; a < subjects[p].parties.length; a++)
+        {
+            //if(subjects[p].parties[a].position == choices[p].answer)
+            //{
+                partyPoints[p].parties =
+                {
+                    name: subjects[p].parties[a].name, points: +1 * choices[p].multiplier
+                }
+            //} 
+        }
+
     }
     
+      /*for(o = 0; o < parties.length; o++)
+    {
+        if(subjects[p].parties[o].position == choices[o].answer)
+    {
+        partyPoints.push({party: subjects[o].parties[o].name, pointss: +2 * choices[o].multiplier});
+        console.log(partyPoints);
+    }
+    }*/
 }
 intro();
