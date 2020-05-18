@@ -322,7 +322,13 @@ background-size: cover;
 
 #multiplier-button:hover
 {
+    cursor: pointer;
+}
+
+#multiplier-button:active
+{
     background-color: rgb(0, 191, 255);
+    color: red;
 }
 
 #neither-opinions

@@ -39,6 +39,7 @@ var yourParties = [];
 var choices = [];
 var theBool = false;
 var partyPoints = [];
+var multistate = false;
 
 var progressBarData = 
 {
@@ -226,7 +227,7 @@ function startStemwijzer()
 function nextQuestion(value)
 {
 
-
+     
     if (theBool == true)
     {
         partyOpinionClose();
@@ -236,7 +237,7 @@ function nextQuestion(value)
     if (choices.length < subjects.length -1)
     {
         
-        choices.push(data = {question:choices.length+1, answer: value, multiplier: 1});
+        choices.push({question:choices.length+1, answer: value, multiplier: 1});
         questionSetup();
         progressBarData.grow();
     }
@@ -247,7 +248,10 @@ function nextQuestion(value)
         resultSetup();
         
     }
-    
+    if(multistate == true)
+    {
+        choices[choices.length-1].multiplier = 2;
+    }
 }
 
 function questionSetup()
@@ -260,7 +264,17 @@ function questionSetup()
 
     multiplierButton.onclick = function()
     {
-            multiplierButton.style = "rgb(0, 191, 255)";
+        if(multistate == false)
+        {
+            multistate = true;
+            multiplierButton.style.backgroundColor = "rgb(0, 191, 255)";  
+        }
+
+        else if(multistate == true)
+        {
+            multistate = false;
+            multiplierButton.style.backgroundColor = "black";
+        }
     }
 
     stellingTitle.innerHTML = subjects[choices.length].title;
