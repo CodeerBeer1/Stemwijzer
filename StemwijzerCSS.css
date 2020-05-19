@@ -470,6 +470,19 @@ background-size: cover;
 
 /* Result */
 
+.preference-buttons
+{
+    margin: 0 auto;
+    outline: none;
+    border: none;
+    width: 90%;
+    border-radius: 1vh;
+    height: 6vh;
+    font-size: 70%;
+    background-color: black;
+    color: white;
+}
+
 #result-modal
 {
     background-color: white;
@@ -510,7 +523,7 @@ background-size: cover;
     color: white;
 }
 
-.partyy:hover, .party-chosen:hover, .volgende:hover
+.partyy:hover, .party-chosen:hover, .volgende:hover, .preference-buttons:hover
 {
     cursor: pointer;
     background-color: rgb(0, 191, 255);

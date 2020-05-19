@@ -43,7 +43,6 @@ var choices = [];
 var theBool = false;
 var partyPoints = [];
 var multistate = false;
-var chosenPartyCounter = 0;
 
 var progressBarData = 
 {
@@ -313,10 +312,10 @@ for (a = 0; a < amountParties; a++)
 
     party.className = "partyy";
     party.id = "partyy"+a;
-    party.setAttribute("onclick", "chooseParty("+a+")");
 
-     
+    party.setAttribute("onclick", "ChosingParty("+a+")")
 }
+
     volgende.onclick = function()
         {
            
@@ -326,7 +325,6 @@ for (a = 0; a < amountParties; a++)
                 if (party.className == "party-chosen")
                 {
                     yourParties.push(party.textContent);
-                    
                 }
             }
           showResult();
@@ -334,28 +332,96 @@ for (a = 0; a < amountParties; a++)
 
 }
 
-function chooseParty(partytje)
+function ChosingParty(a)
 {
+    var party = document.getElementById("partyy"+a);
 
-    var party = document.getElementById("partyy"+partytje);
     if (party.className != "party-chosen")
-    {
-
-        party.className = "party-chosen";
-        chosenPartyCounter++;
-
-    }
-
-    else if (party.className == "party-chosen")
-    {
+        {
     
-        party.className = "partyy";
-        chosenPartyCounter--;
+            party.className = "party-chosen";
+    
+        }
+    
+        else if (party.className == "party-chosen")
+        {
+        
+            party.className = "partyy";
+    
+        }
+}
 
+function chooseSecularParties()
+{
+    for (e=0; e < 24; e++)
+    {
+        var party = document.getElementById("partyy"+e);
+        if(party.textContent == parties[e].name )
+        {
+            if(parties[e].secular == true)
+            {
+                party.className = "party-chosen";
+
+            }
+        }
     }
 }
 
+function chooseGreatParties()
+{
+    for (e=0; e < 24; e++)
+    {
+        var party = document.getElementById("partyy"+e);
+        if(party.textContent == parties[e].name )
+        {
+            if(parties[e].size >= 10)
+            {
+                party.className = "party-chosen";
 
+            }
+        }
+    }
+}
+
+function showResult()
+{
+    resultModal.className = "hide";
+    rankingModal.className = "grid";
+
+    points();
+
+    
+    let pScoreList = [];
+    parties.forEach(party => {
+            pScoreList.push(p = {
+            name: party.name,
+            score: party.score
+        });
+    })
+    pScoreList.sort((a,b) => (a.score < b.score) ? 1 : -1);
+
+        for(p = 0; p < pScoreList.length; p++)
+        {
+            if (pScoreList[0].name != yourParties[0])
+            {
+                pScoreList.splice(0, 1);
+            }
+        }
+    
+    
+  console.log(pScoreList);
+
+    FirstChoice.innerHTML ="1ste keuze "+ pScoreList[0].name + ", "+ pScoreList[0].score + " punten";
+    SecondChoice.innerHTML ="2de keuze "+ pScoreList[1].name + ", "+ pScoreList[1].score + " punten";
+    ThirdChoice.innerHTML ="3de keuze "+ pScoreList[2].name + ", "+ pScoreList[2].score + " punten";
+
+    for (i = 3; i < pScoreList.length; i++)
+    {
+        var place = document.getElementById("nr"+i);
+        place.innerHTML = i + "de " + pScoreList[i].name + ", " + pScoreList[i].score + " punten";
+
+    }
+}
 
 function points()
 {
@@ -376,7 +442,7 @@ parties[r].score = 0;
             if(subjects[p].parties[a].position == choices[p].answer)
             {
                 var result = parties.find(function(party) {return party.name == subjects[p].parties[a].name})
-                result.score++;
+                result.score++ * choices[p].multiplier;
             } 
         }
 
@@ -384,41 +450,4 @@ parties[r].score = 0;
 
     }
     
-      /*for(o = 0; o < parties.length; o++)
-    {
-        if(subjects[p].parties[o].position == choices[o].answer)
-    {
-        partyPoints.push({party: subjects[o].parties[o].name, pointss: +2 * choices[o].multiplier});
-        console.log(partyPoints);
-    }
-    }*/
-}
-
-function showResult()
-{
-    resultModal.className = "hide";
-    rankingModal.className = "grid";
-    points();
-    
-    let pScoreList = [];
-    parties.forEach(party => {
-        pScoreList.push(p = {
-            name: party.name,
-            score: party.score
-        });
-    
-    })
-    pScoreList.sort((a,b) => (a.score < b.score) ? 1 : -1);
-    console.log(pScoreList);
-
-    FirstChoice.innerHTML ="1ste keuze "+ pScoreList[0].name + ", "+ pScoreList[0].score + " punten";
-    SecondChoice.innerHTML ="2de keuze "+ pScoreList[1].name + ", "+ pScoreList[1].score + " punten";
-    ThirdChoice.innerHTML ="3ste keuze "+ pScoreList[2].name + ", "+ pScoreList[2].score + " punten";
-
-    for (i = 3; i < pScoreList.length; i++)
-    {
-        var place = document.getElementById("nr"+i);
-        place.innerHTML = pScoreList[i].name + " " + pScoreList[i].score + " punten";
-
-    }
 }
