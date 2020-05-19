@@ -557,13 +557,22 @@ background-size: cover;
     height: 60vh;
     margin: 20vh auto;
     padding: 5vh;
-    grid-template-columns: repeat(3, 33.3%);
-    grid-template-rows: repeat(5, 20%);
+
 }
 
-#ranking-modal div
+#nr1, #nr2, #nr3
 {
     text-align: center;
-    font-size: 30;
+    font-size: 120%;
+    font-weight: bold;
+    color: rgb(204, 204, 70);    
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.place
+{
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    font-size: 15px;
+    margin: 0 auto; 
 }

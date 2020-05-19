@@ -33,8 +33,11 @@ var FirstChoice = document.getElementById("nr1");
 var SecondChoice = document.getElementById("nr2");
 var ThirdChoice = document.getElementById("nr3");
 
+var TheRest = document.getElementById("the-rest");
+
 var multiplierButton = document.getElementById("multiplier-button");
 
+var pointsInOrder = [];
 var yourParties = [];
 var choices = [];
 var theBool = false;
@@ -235,7 +238,7 @@ function nextQuestion(value)
     }
     
     
-    if (choices.length < subjects.length -1)
+    if (choices.length < subjects.length)
     {
         
         choices.push({question:choices.length+1, answer: value, multiplier: 1});
@@ -352,12 +355,7 @@ function chooseParty(partytje)
     }
 }
 
-function showResult()
-{
-    resultModal.className = "hide";
-    rankingModal.className = "grid";
-    points();
-}
+
 
 function points()
 {
@@ -369,7 +367,6 @@ for ( r = 0 ; r < parties.length; r ++)
 parties[r].score = 0;
 
 }
-    console.dir(choices);
    
     for(p = 0; p < subjects.length; p++)
     {
@@ -378,10 +375,7 @@ parties[r].score = 0;
         {
             if(subjects[p].parties[a].position == choices[p].answer)
             {
-                // zoek de partij op in de lijst met partijen
-                // verhoog voor de gevonden partij de score met een.
-
-                    var result = parties.find(function(party) {return party.name == subjects[p].parties[a].name})
+                var result = parties.find(function(party) {return party.name == subjects[p].parties[a].name})
                 result.score++;
             } 
         }
@@ -399,4 +393,32 @@ parties[r].score = 0;
     }
     }*/
 }
-intro();
+
+function showResult()
+{
+    resultModal.className = "hide";
+    rankingModal.className = "grid";
+    points();
+    
+    let pScoreList = [];
+    parties.forEach(party => {
+        pScoreList.push(p = {
+            name: party.name,
+            score: party.score
+        });
+    
+    })
+    pScoreList.sort((a,b) => (a.score < b.score) ? 1 : -1);
+    console.log(pScoreList);
+
+    FirstChoice.innerHTML ="1ste keuze "+ pScoreList[0].name + ", "+ pScoreList[0].score + " punten";
+    SecondChoice.innerHTML ="2de keuze "+ pScoreList[1].name + ", "+ pScoreList[1].score + " punten";
+    ThirdChoice.innerHTML ="3ste keuze "+ pScoreList[2].name + ", "+ pScoreList[2].score + " punten";
+
+    for (i = 3; i < pScoreList.length; i++)
+    {
+        var place = document.getElementById("nr"+i);
+        place.innerHTML = pScoreList[i].name + " " + pScoreList[i].score + " punten";
+
+    }
+}
