@@ -40,6 +40,7 @@ var choices = [];
 var theBool = false;
 var partyPoints = [];
 var multistate = false;
+var chosenPartyCounter = 0;
 
 var progressBarData = 
 {
@@ -338,6 +339,7 @@ function chooseParty(partytje)
     {
 
         party.className = "party-chosen";
+        chosenPartyCounter++;
 
     }
 
@@ -345,9 +347,9 @@ function chooseParty(partytje)
     {
     
         party.className = "partyy";
+        chosenPartyCounter--;
 
     }
-
 }
 
 function showResult()
@@ -359,20 +361,32 @@ function showResult()
 
 function points()
 {
+
+    // voeg voor elke partij in de parties een propertie toe waarin je de matchscore bijhoud
+
+for ( r = 0 ; r < parties.length; r ++)
+{
+parties[r].score = 0;
+
+}
+    console.dir(choices);
    
     for(p = 0; p < subjects.length; p++)
     {
-        partyPoints.push({question: p+1, parties: {} });
+       
         for(a = 0; a < subjects[p].parties.length; a++)
         {
-            //if(subjects[p].parties[a].position == choices[p].answer)
-            //{
-                partyPoints[p].parties =
-                {
-                    name: subjects[p].parties[a].name, points: +1 * choices[p].multiplier
-                }
-            //} 
+            if(subjects[p].parties[a].position == choices[p].answer)
+            {
+                // zoek de partij op in de lijst met partijen
+                // verhoog voor de gevonden partij de score met een.
+
+                    var result = parties.find(function(party) {return party.name == subjects[p].parties[a].name})
+                result.score++;
+            } 
         }
+
+        console.log(parties);
 
     }
     
