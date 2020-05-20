@@ -37,6 +37,10 @@ var TheRest = document.getElementById("the-rest");
 
 var multiplierButton = document.getElementById("multiplier-button");
 
+
+var secOn = false;
+var grtOn = false;
+var partyCount = 0;
 var pointsInOrder = [];
 var yourParties = [];
 var choices = [];
@@ -303,6 +307,7 @@ function endPartyChoose()
     var amountParties = parties.length;
 
 
+
 for (a = 0; a < amountParties; a++) 
 {
     var partyText = document.createTextNode(parties[a].name);
@@ -313,13 +318,18 @@ for (a = 0; a < amountParties; a++)
     party.className = "partyy";
     party.id = "partyy"+a;
 
-    party.setAttribute("onclick", "ChosingParty("+a+")")
+    party.setAttribute("onclick", "ChoosingParty("+a+")")
 }
 
     volgende.onclick = function()
         {
-           
-            for (o = 0; o < amountParties; o++)
+           if(partyCount < 3)
+           {
+               alert("Kies minimaal 3 partijen om te doorgaan")
+           }
+           else
+           {
+               for (o = 0; o < amountParties; o++)
             { 
                 var party = document.getElementById("partyy"+o);
                 if (party.className == "party-chosen")
@@ -328,31 +338,40 @@ for (a = 0; a < amountParties; a++)
                 }
             }
           showResult();
+           }
+            
         }
 
 }
 
-function ChosingParty(a)
+function ChoosingParty(a)
 {
     var party = document.getElementById("partyy"+a);
 
     if (party.className != "party-chosen")
         {
-    
+            partyCount++;
             party.className = "party-chosen";
+            console.log(partyCount);
     
         }
     
         else if (party.className == "party-chosen")
         {
-        
+            partyCount--;
             party.className = "partyy";
-    
+            console.log(partyCount);
         }
 }
 
 function chooseSecularParties()
 {
+    if(grtOn == true)
+    {
+        partyCount = partyCount -21;
+        grtOn = false;
+    }
+    secOn = true;
     for (e=0; e < 24; e++)
     {
         var party = document.getElementById("partyy"+e);
@@ -360,8 +379,13 @@ function chooseSecularParties()
         {
             if(parties[e].secular == true)
             {
+                partyCount++;
                 party.className = "party-chosen";
 
+            }
+            else
+            {
+                party.className = "partyy";
             }
         }
     }
@@ -369,6 +393,12 @@ function chooseSecularParties()
 
 function chooseGreatParties()
 {
+    if(secOn == true)
+    {
+        partyCount = partyCount -21;
+        secOn = false;
+    }
+    grtOn = true;
     for (e=0; e < 24; e++)
     {
         var party = document.getElementById("partyy"+e);
@@ -377,7 +407,11 @@ function chooseGreatParties()
             if(parties[e].size >= 10)
             {
                 party.className = "party-chosen";
-
+                partyCount++;
+            }
+            else
+            {
+                party.className = "partyy";
             }
         }
     }
@@ -400,15 +434,26 @@ function showResult()
     })
     pScoreList.sort((a,b) => (a.score < b.score) ? 1 : -1);
 
-        for(p = 0; p < pScoreList.length; p++)
-        {
-            if (pScoreList[0].name != yourParties[0])
+    if(yourParties.length > 0)
+    {for(r = yourParties.length; r > -1; r--)
             {
-                pScoreList.splice(0, 1);
+            for(p = 23; p > -1; p--)
+        {
+            
+                if (pScoreList[p].name != yourParties[r])
+            {
+                alert(p + pScoreList[p].name + yourParties[r]);
+                pScoreList[p].score = 0;
+                pScoreList[p].name = "Niet gekozen";
             }
+            }
+            
         }
+                
+    }
     
     
+
   console.log(pScoreList);
 
     FirstChoice.innerHTML ="1ste keuze "+ pScoreList[0].name + ", "+ pScoreList[0].score + " punten";
