@@ -1,3 +1,16 @@
+/*
+
+    Opdracht: Stemwijzer Front-end Challenge
+    Naam: Khizer Butt
+    Klas: 18A3
+    Studenten-nummer: 99053182
+    Inleverdatum: 20/5/2020
+
+*/
+
+
+// Alle HTML elementen worden hier opgehaald.
+
 var body = document.getElementById("body");
 var stemwijzerModal = document.getElementById("intro-modal");
 var loadingModal = document.getElementById("loading-modal");
@@ -37,12 +50,15 @@ var TheRest = document.getElementById("the-rest");
 
 var multiplierButton = document.getElementById("multiplier-button");
 
-var pointsInOrder = [];
+// Alle globale variabelen.
+
 var yourParties = [];
 var choices = [];
 var theBool = false;
-var partyPoints = [];
 var multistate = false;
+
+// Deze object hieronder houdt bij hoever je bent met de stemwijzer, door een balk te laten weergeven-
+// die per groeit of krimpt aan de afhankelijk van jouw voortgang.
 
 var progressBarData = 
 {
@@ -66,43 +82,132 @@ var progressBarData =
 
 }
 
-function loadActualOpinion(theParty)
+// Deze function hieronder zet de eerste gedeelte van de applicatie in elkaar.
+
+function intro()
 {
-    body.className = "scroll-lock";
-    opinionPopupModal.className = "show";
+    progressBar.className = "hide";
+    progressBarData.width = 0;
+    contributorsOpinionModal.className = "hide";
+    stellingenModal.className = "hide";
+    stemwijzerModal.className = "grid";
+    contributorsOverviewModal.className = "grid";
+}
 
-    var partyposition = document.createTextNode(subjects[choices.length].parties[theParty].position);
-    var p = document.getElementById("position").appendChild(partyposition);
+// Deze function hieronder start de stemwijzer.
 
-    var partyopinion = document.createTextNode(subjects[choices.length].parties[theParty].opinion);
-    document.getElementById("opinion").appendChild(partyopinion);
-    var p = document.getElementById("position").appendChild(partyposition);
-    
-    if (partyposition.textContent == "pro")
+function startStemwijzer()
+{
+    contributorsOverviewModal.className = "hide";
+    stemwijzerModal.className = "hide";
+    loadingModal.className = "grid";
+
+   setTimeout(function() {questionSetup()}, 1500);
+}
+
+// Deze function hieronder zet de vraag inelkaar met de bijbehorende gegevens.
+
+function questionSetup()
+{
+    console.log(choices);
+    resultModal.className = "hide";
+    loadingModal.className = "hide";
+    stellingenModal.className = "grid";
+    progressBar.className = "show";
+
+    // Button die zorgt voor meer gewicht van de vraag door vermenigvuldiging van punten.
+
+    multiplierButton.onclick = function()
     {
-        p.textContent = "Eens";
+        if(multistate == false)
+        {
+            multistate = true;
+            multiplierButton.style.backgroundColor = "rgb(0, 191, 255)";  
+        }
+
+        else if(multistate == true)
+        {
+            multistate = false;
+            multiplierButton.style.backgroundColor = "black";
+        }
+    }
+
+    stellingTitle.innerHTML = subjects[choices.length].title;
+    stellingText.innerHTML = subjects[choices.length].statement;
+    
+}
+
+// Deze functie schakelt naar de volgende vraag.
+
+function nextQuestion(value)
+{
+
+    // Sluit ook de meningen van partijen.
+
+    if (theBool == true)
+    {
+        partyOpinionClose();
     }
     
-    if (partyposition.textContent == "contra")
+    // Slaat de ingevoerde gegevens op in een array.
+
+    if (choices.length < subjects.length)
     {
-        p.textContent = "Oneens";
         
+        choices.push({question:choices.length+1, answer: value, multiplier: 1});
+        questionSetup();
+        progressBarData.grow();
     }
 
-    if (partyposition.textContent == "none")
+    else if (choices.length >= subjects.length -1)
     {
-        p.textContent = "Geen van beide";
+
+        resultSetup();
         
+    }
+    if(multistate == true)
+    {
+        choices[choices.length-1].multiplier = 2;
     }
 }
 
-function closeActualOpinion()
+// De function hieronder gaat terug naar de vorige vraag.
+
+function back()
 {
-    body.className = "show";
-    opinionPopupModal.className = "hide";
-    position.innerHTML = "";
-    opinion.innerHTML = "";
+    if (endPartyChoose == true)
+    {
+        endPartyChoose = false;
+        
+        var amountParties = parties.length;
+
+        for (a = 0; a < amountParties; a++)
+        {
+        
+            remove(party);
+        
+        }
+    }
+    if (theBool == true)
+    {
+        partyOpinionClose();
+    }
+    
+
+    if (choices.length == 0)
+    {
+        intro();
+    }
+    else if (choices.length <= subjects.length)
+    {
+        choices.pop();
+        questionSetup();
+        progressBarData.shrink();
+    }
+    
 }
+
+// Deze function laadt alle partijen tervoorschijn met een knop die allemaal leiden naar hun meningen.
 
 function partyOpinionLoad()
 {
@@ -146,6 +251,8 @@ function partyOpinionLoad()
 
 }
 
+// Hierdoor verdwijnen alle partijen met hun buttons voor hun meningen.
+
 function partyOpinionClose()
 {
     contributorsOpinionModal.className = "hide";
@@ -159,39 +266,49 @@ function partyOpinionClose()
 
 }
 
-function back()
+// Deze function hieronder laadt de mening van de partij zelf in een modal.
+
+function loadActualOpinion(theParty)
 {
-    if (endPartyChoose == true)
-    {
-        endPartyChoose = false;
-        
-        var amountParties = parties.length;
+    body.className = "scroll-lock";
+    opinionPopupModal.className = "show";
 
-        for (a = 0; a < amountParties; a++)
-        {
-        
-            remove(party);
-        
-        }
-    }
-    if (theBool == true)
+    var partyposition = document.createTextNode(subjects[choices.length].parties[theParty].position);
+    var p = document.getElementById("position").appendChild(partyposition);
+
+    var partyopinion = document.createTextNode(subjects[choices.length].parties[theParty].opinion);
+    document.getElementById("opinion").appendChild(partyopinion);
+    var p = document.getElementById("position").appendChild(partyposition);
+    
+    if (partyposition.textContent == "pro")
     {
-        partyOpinionClose();
+        p.textContent = "Eens";
     }
     
+    if (partyposition.textContent == "contra")
+    {
+        p.textContent = "Oneens";
+        
+    }
 
-    if (choices.length == 0)
+    if (partyposition.textContent == "none")
     {
-        intro();
+        p.textContent = "Geen van beide";
+        
     }
-    else if (choices.length <= subjects.length)
-    {
-        choices.pop();
-        questionSetup();
-        progressBarData.shrink();
-    }
-    
 }
+
+// Deze function haalt de mening van de scherm af.
+
+function closeActualOpinion()
+{
+    body.className = "show";
+    opinionPopupModal.className = "hide";
+    position.innerHTML = "";
+    opinion.innerHTML = "";
+}
+
+// Deze function hieronder leidt naar andere functions die zorgen voor de verschijning van de meningen.
 
 function showOpinions()
 {
@@ -207,83 +324,7 @@ function showOpinions()
         }
 }
 
-function intro()
-{
-    progressBar.className = "hide";
-    progressBarData.width = 0;
-    contributorsOpinionModal.className = "hide";
-    stellingenModal.className = "hide";
-    stemwijzerModal.className = "grid";
-
-    contributorsOverviewModal.className = "grid";
-}
-
-function startStemwijzer()
-{
-    contributorsOverviewModal.className = "hide";
-    stemwijzerModal.className = "hide";
-    loadingModal.className = "grid";
-
-   setTimeout(function() {questionSetup()}, 1500);
-}
-
-function nextQuestion(value)
-{
-
-     
-    if (theBool == true)
-    {
-        partyOpinionClose();
-    }
-    
-    
-    if (choices.length < subjects.length)
-    {
-        
-        choices.push({question:choices.length+1, answer: value, multiplier: 1});
-        questionSetup();
-        progressBarData.grow();
-    }
-
-    else if (choices.length >= subjects.length -1)
-    {
-
-        resultSetup();
-        
-    }
-    if(multistate == true)
-    {
-        choices[choices.length-1].multiplier = 2;
-    }
-}
-
-function questionSetup()
-{
-    console.log(choices);
-    resultModal.className = "hide";
-    loadingModal.className = "hide";
-    stellingenModal.className = "grid";
-    progressBar.className = "show";
-
-    multiplierButton.onclick = function()
-    {
-        if(multistate == false)
-        {
-            multistate = true;
-            multiplierButton.style.backgroundColor = "rgb(0, 191, 255)";  
-        }
-
-        else if(multistate == true)
-        {
-            multistate = false;
-            multiplierButton.style.backgroundColor = "black";
-        }
-    }
-
-    stellingTitle.innerHTML = subjects[choices.length].title;
-    stellingText.innerHTML = subjects[choices.length].statement;
-    
-}
+// Deze function hieronder zet alvast alles klaar voor de uitslag presentatie.
 
 function resultSetup()
 {
@@ -293,32 +334,38 @@ function resultSetup()
 
     resultModal.className = "grid";
 
+    // Je kan ondertussen kiezen wat je voorkeuren zijn bij partijen.
     endPartyChoose()
 
 }
 
+// Deze function hieronder haalt alle partijen tervoorschijn om te kiezen welke je mee wilt nemen.
+
 function endPartyChoose()
 {
+
     endPartyChoose = true;
     var amountParties = parties.length;
 
+    // Laadt ze allemaal in.
+    for (a = 0; a < amountParties; a++) 
+    {
+        var partyText = document.createTextNode(parties[a].name);
+        var party = document.createElement("button");
+        partyContainer.appendChild(party);
+        party.appendChild(partyText);
 
-for (a = 0; a < amountParties; a++) 
-{
-    var partyText = document.createTextNode(parties[a].name);
-    var party = document.createElement("button");
-    partyContainer.appendChild(party);
-    party.appendChild(partyText);
+        party.className = "partyy";
+        party.id = "partyy"+a;
 
-    party.className = "partyy";
-    party.id = "partyy"+a;
+        // De knoppen leiden naar een andere function die partijen opneemt voor de eindresultaat.
+        party.setAttribute("onclick", "ChosingParty("+a+")")
+    }
 
-    party.setAttribute("onclick", "ChosingParty("+a+")")
-}
-
+    // Gaat naar de eindresultaat.
     volgende.onclick = function()
         {
-           
+           // Kijkt met for-loop welke knoppen groen zijn (dus "party-chosen" als classnaam hebben) en stuurt hun naam mee naar een array: yourParties.
             for (o = 0; o < amountParties; o++)
             { 
                 var party = document.getElementById("partyy"+o);
@@ -327,13 +374,20 @@ for (a = 0; a < amountParties; a++)
                     yourParties.push(party.textContent);
                 }
             }
-          showResult();
+
+            // Laat eindresultaat zien.
+            showResult();
         }
 
 }
 
+// Deze function hieronder bepaalt of een partij wel of niet meegaat naar een eindresultaat.
+
 function ChosingParty(a)
 {
+
+    // Krijgt een ID van partij als argument mee om de juiste knop te selecteren.
+
     var party = document.getElementById("partyy"+a);
 
     if (party.className != "party-chosen")
@@ -351,8 +405,14 @@ function ChosingParty(a)
         }
 }
 
+// Deze function hieronder selecteert alle seculiere partijen die de gebruiker kan meenemen naar de eindresultaat.
+
 function chooseSecularParties()
 {
+
+    // Met een for-loop neemt het alle partijen op die hun naam en seculariteit controleert-
+    // door het te vergelijken met de originele lijst van alle partijen met hun bijbehorende-
+    // gegevens; en hun vervolgens een "party-chosen" als classnaam te geven.
     for (e=0; e < 24; e++)
     {
         var party = document.getElementById("partyy"+e);
@@ -367,8 +427,14 @@ function chooseSecularParties()
     }
 }
 
+// Deze function hieronder selecteert alle grote partijen die de gebruiker kan meenemen naar de eindresultaat.
+
 function chooseGreatParties()
 {
+
+    // Met een for-loop neemt het alle partijen op die hun naam en grootte controleert-
+    // door het te vergelijken met de originele lijst van alle partijen met hun bijbehorende-
+    // gegevens; en hun vervolgens een "party-chosen" als classnaam te geven.
     for (e=0; e < 24; e++)
     {
         var party = document.getElementById("partyy"+e);
@@ -383,35 +449,70 @@ function chooseGreatParties()
     }
 }
 
-function showResult()
+// Deze function hieronder berekent de punten van de partijen.
+
+function CalculatePoints()
 {
-    resultModal.className = "hide";
-    rankingModal.className = "grid";
 
-    points();
+    // In de "parties" array krijgen alle partijen krijgen "score" property om hun punten bij te houden.
+    for ( r = 0 ; r < parties.length; r ++)
+    {
+        parties[r].score = 0;
+    }
+   
+    // Hier gaat de for-loop over al je antwoorden en van de partijen, en kijkt of ze overeen komen.
+    // Als dat het geval is, wordt de partij opgezocht in "parties" door een ingebouwde find() array function, wordt de score verhoogd en als van toepassing is vermenigvuldigd door 2.
+    for(p = 0; p < subjects.length; p++)
+    {
+        for(a = 0; a < subjects[p].parties.length; a++)
+        {
+            if(subjects[p].parties[a].position == choices[p].answer)
+            {
+                var result = parties.find(function(party)
+                {
+                    return party.name == subjects[p].parties[a].name
+                })
+                result.score += 1 * choices[p].multiplier;
+            } 
+        }
+    }
+}
 
-    
-    let pScoreList = [];
-    parties.forEach(party => {
-            pScoreList.push(p = {
-            name: party.name,
-            score: party.score
-        });
+// Deze function hieronder sorteert de partijen aan de hand van hun punten en voorkeur van de gebruiker.
+
+function SortParties()
+{
+
+    // Er wordt een kopie gemaakt van een array die al punten bijhoudt, om ze te sorteren.
+    var pScoreList = [];
+
+    // Met een forEach() word alles van parties gepushed naar pScoreList.
+    parties.forEach(party => 
+        {
+            pScoreList.push(
+                {
+                    name: party.name,
+                    score: party.score
+                });
     })
+
+    // Vervolgens wordt de pScoreList gesorteerd met een ingebouwde sort() function voor arrays.
     pScoreList.sort((a,b) => (a.score < b.score) ? 1 : -1);
-    console.log(pScoreList);
+ 
+    // Hier worden alle partijen daarna gecontroleerd of zij inderdaad gekozen zijn door ze een "check" property met een 'true' te geven.
     for(o = 0; o < yourParties.length; o++)
     {
         for(p = 0; p < 24; p++)
         {
+            // Kijkt of de namen in "yourParties" in "pScoreList" zijn.
             if (pScoreList[p].name == yourParties[o])
             {
                pScoreList[p].check = true;
             }
         }
     }
-    console.log(pScoreList);
 
+    // De resterende partijen die niet zijn gekozen (dus geen 'true' bij zich hebben) worden uit de array verwijderd.
     for(i = 23; i > -1; i--)
     {
         if(pScoreList[i].check != true)
@@ -419,11 +520,8 @@ function showResult()
             pScoreList.splice(i, 1);
         }
     }
-        
-        
-    
 
-
+    // Laat ze zien met de index van de array met de partijen op de juiste volgorde en voorkeur van de gebruiker.
     FirstChoice.innerHTML ="1ste keuze "+ pScoreList[0].name + ", "+ pScoreList[0].score + " punten";
     SecondChoice.innerHTML ="2de keuze "+ pScoreList[1].name + ", "+ pScoreList[1].score + " punten";
     ThirdChoice.innerHTML ="3de keuze "+ pScoreList[2].name + ", "+ pScoreList[2].score + " punten";
@@ -433,33 +531,18 @@ function showResult()
         var place = document.getElementById("nr"+i);
         place.innerHTML = i + "de " + pScoreList[i].name + ", " + pScoreList[i].score + " punten";
     }
-}
-
-function points()
-{
-
-    // voeg voor elke partij in de parties een propertie toe waarin je de matchscore bijhoud
-
-for ( r = 0 ; r < parties.length; r ++)
-{
-parties[r].score = 0;
-
-}
-   
-    for(p = 0; p < subjects.length; p++)
-    {
-       
-        for(a = 0; a < subjects[p].parties.length; a++)
-        {
-            if(subjects[p].parties[a].position == choices[p].answer)
-            {
-                var result = parties.find(function(party) {return party.name == subjects[p].parties[a].name})
-                result.score++ * choices[p].multiplier;
-            } 
-        }
-
-        console.log(parties);
-
-    }
     
+}
+
+// Deze function hieronder laat de eindresultaat zien.
+
+function showResult()
+{
+    resultModal.className = "hide";
+    rankingModal.className = "grid";
+
+    // Voert ook functions uit voor het berekenen en sorteren van de eindresultaat.
+    CalculatePoints();
+    SortParties();
+
 }
