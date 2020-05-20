@@ -317,30 +317,25 @@ for (a = 0; a < amountParties; a++)
 
     party.className = "partyy";
     party.id = "partyy"+a;
+    party.name = parties[a].name;
+    party.isSelected  = false;
 
     party.setAttribute("onclick", "ChoosingParty("+a+")")
 }
 
     volgende.onclick = function()
         {
-           if(partyCount < 3)
-           {
-               alert("Kies minimaal 3 partijen om te doorgaan")
-           }
-           else
-           {
+         
                for (o = 0; o < amountParties; o++)
             { 
                 var party = document.getElementById("partyy"+o);
-                if (party.className == "party-chosen")
-                {
-                    yourParties.push(party.textContent);
-                }
+                
+                    yourParties.push(party)
+                    
+                
             }
           showResult();
            }
-            
-        }
 
 }
 
@@ -352,7 +347,7 @@ function ChoosingParty(a)
         {
             partyCount++;
             party.className = "party-chosen";
-            console.log(partyCount);
+           party.isSelected = true;
     
         }
     
@@ -360,7 +355,8 @@ function ChoosingParty(a)
         {
             partyCount--;
             party.className = "partyy";
-            console.log(partyCount);
+            party.isSelected = false;
+           
         }
 }
 
@@ -419,6 +415,7 @@ function chooseGreatParties()
 
 function showResult()
 {
+    
     resultModal.className = "hide";
     rankingModal.className = "grid";
 
@@ -426,35 +423,33 @@ function showResult()
 
     
     let pScoreList = [];
+    let chosenParties = [];
+
+    yourParties.forEach(parties => {
+        if(parties.isSelected == true)
+        {
+            chosenParties.push(parties.name);
+          
+        }
+    })
+
     parties.forEach(party => {
             pScoreList.push(p = {
             name: party.name,
             score: party.score
         });
+    
     })
     pScoreList.sort((a,b) => (a.score < b.score) ? 1 : -1);
 
-    if(yourParties.length > 0)
-    {for(r = yourParties.length; r > -1; r--)
-            {
-            for(p = 23; p > -1; p--)
-        {
-            
-                if (pScoreList[p].name != yourParties[r])
-            {
-                alert(p + pScoreList[p].name + yourParties[r]);
-                pScoreList[p].score = 0;
-                pScoreList[p].name = "Niet gekozen";
-            }
-            }
-            
-        }
-                
-    }
-    
-    
+ 
+
+    // for(i=0; i < pScoreList.length; i++){
+    //     if(pScoreList[i].name == chosenParties[i])
+    // }
 
   console.log(pScoreList);
+  console.log(chosenParties);
 
     FirstChoice.innerHTML ="1ste keuze "+ pScoreList[0].name + ", "+ pScoreList[0].score + " punten";
     SecondChoice.innerHTML ="2de keuze "+ pScoreList[1].name + ", "+ pScoreList[1].score + " punten";
@@ -487,12 +482,7 @@ parties[r].score = 0;
             if(subjects[p].parties[a].position == choices[p].answer)
             {
                 var result = parties.find(function(party) {return party.name == subjects[p].parties[a].name})
-                result.score++ * choices[p].multiplier;
+                result.score += 2 * choices[p].multiplier;
             } 
         }
-
-        console.log(parties);
-
-    }
-    
 }
