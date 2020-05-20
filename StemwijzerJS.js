@@ -58,7 +58,7 @@ var theBool = false;
 var multistate = false;
 
 // Deze object hieronder houdt bij hoever je bent met de stemwijzer, door een balk te laten weergeven-
-// die per groeit of krimpt aan de afhankelijk van jouw voortgang.
+// die groeit of krimpt afhankelijk van jouw voortgang.
 
 var progressBarData = 
 {
@@ -82,7 +82,7 @@ var progressBarData =
 
 }
 
-// Deze function hieronder zet de eerste gedeelte van de applicatie in elkaar.
+// Function hieronder zet de eerste gedeelte van de applicatie in elkaar.
 
 function intro()
 {
@@ -94,7 +94,7 @@ function intro()
     contributorsOverviewModal.className = "grid";
 }
 
-// Deze function hieronder start de stemwijzer.
+// Function hieronder start de stemwijzer.
 
 function startStemwijzer()
 {
@@ -105,7 +105,7 @@ function startStemwijzer()
    setTimeout(function() {questionSetup()}, 1500);
 }
 
-// Deze function hieronder zet de vraag inelkaar met de bijbehorende gegevens.
+// Function hieronder zet de vraag inelkaar met de bijbehorende gegevens.
 
 function questionSetup()
 {
@@ -137,7 +137,7 @@ function questionSetup()
     
 }
 
-// Deze functie schakelt naar de volgende vraag.
+// Function hieronder schakelt naar de volgende vraag.
 
 function nextQuestion(value)
 {
@@ -171,7 +171,7 @@ function nextQuestion(value)
     }
 }
 
-// De function hieronder gaat terug naar de vorige vraag.
+// Function hieronder gaat terug naar de vorige vraag.
 
 function back()
 {
@@ -207,7 +207,7 @@ function back()
     
 }
 
-// Deze function laadt alle partijen tervoorschijn met een knop die allemaal leiden naar hun meningen.
+// Function hieronder laadt alle partijen tervoorschijn met een knop die allemaal leiden naar hun meningen.
 
 function partyOpinionLoad()
 {
@@ -251,7 +251,7 @@ function partyOpinionLoad()
 
 }
 
-// Hierdoor verdwijnen alle partijen met hun buttons voor hun meningen.
+// Function hieronder verdwijnen alle partijen met hun buttons voor hun meningen.
 
 function partyOpinionClose()
 {
@@ -266,7 +266,7 @@ function partyOpinionClose()
 
 }
 
-// Deze function hieronder laadt de mening van de partij zelf in een modal.
+// Function hieronder laadt de mening van de partij zelf in een modal.
 
 function loadActualOpinion(theParty)
 {
@@ -298,7 +298,7 @@ function loadActualOpinion(theParty)
     }
 }
 
-// Deze function haalt de mening van de scherm af.
+// Function hieronder haalt de mening van de scherm af.
 
 function closeActualOpinion()
 {
@@ -308,7 +308,7 @@ function closeActualOpinion()
     opinion.innerHTML = "";
 }
 
-// Deze function hieronder leidt naar andere functions die zorgen voor de verschijning van de meningen.
+// Function hieronder leidt naar andere functions die zorgen voor de verschijning van de meningen.
 
 function showOpinions()
 {
@@ -324,7 +324,7 @@ function showOpinions()
         }
 }
 
-// Deze function hieronder zet alvast alles klaar voor de uitslag presentatie.
+// Function hieronder zet alvast alles klaar voor de uitslag presentatie.
 
 function resultSetup()
 {
@@ -339,7 +339,7 @@ function resultSetup()
 
 }
 
-// Deze function hieronder haalt alle partijen tervoorschijn om te kiezen welke je mee wilt nemen.
+// Function hieronder haalt alle partijen tervoorschijn om te kiezen welke je mee wilt nemen.
 
 function endPartyChoose()
 {
@@ -381,7 +381,7 @@ function endPartyChoose()
 
 }
 
-// Deze function hieronder bepaalt of een partij wel of niet meegaat naar een eindresultaat.
+// Function hieronder bepaalt of een partij wel of niet meegaat naar een eindresultaat.
 
 function ChosingParty(a)
 {
@@ -405,7 +405,7 @@ function ChosingParty(a)
         }
 }
 
-// Deze function hieronder selecteert alle seculiere partijen die de gebruiker kan meenemen naar de eindresultaat.
+// Function hieronder selecteert alle seculiere partijen die de gebruiker kan meenemen naar de eindresultaat.
 
 function chooseSecularParties()
 {
@@ -427,7 +427,7 @@ function chooseSecularParties()
     }
 }
 
-// Deze function hieronder selecteert alle grote partijen die de gebruiker kan meenemen naar de eindresultaat.
+// Function hieronder selecteert alle grote partijen die de gebruiker kan meenemen naar de eindresultaat.
 
 function chooseGreatParties()
 {
@@ -449,7 +449,7 @@ function chooseGreatParties()
     }
 }
 
-// Deze function hieronder berekent de punten van de partijen.
+// Function hieronder berekent de punten van de partijen.
 
 function CalculatePoints()
 {
@@ -461,7 +461,8 @@ function CalculatePoints()
     }
    
     // Hier gaat de for-loop over al je antwoorden en van de partijen, en kijkt of ze overeen komen.
-    // Als dat het geval is, wordt de partij opgezocht in "parties" door een ingebouwde find() array function, wordt de score verhoogd en als van toepassing is vermenigvuldigd door 2.
+    // Als dat het geval is, wordt de partij opgezocht in "parties" door een ingebouwde find() array function, wordt de score-
+    // verhoogd en als van toepassing is vermenigvuldigd door 2.
     for(p = 0; p < subjects.length; p++)
     {
         for(a = 0; a < subjects[p].parties.length; a++)
@@ -478,7 +479,7 @@ function CalculatePoints()
     }
 }
 
-// Deze function hieronder sorteert de partijen aan de hand van hun punten en voorkeur van de gebruiker.
+// Function hieronder sorteert de partijen aan de hand van hun punten en voorkeur van de gebruiker.
 
 function SortParties()
 {
@@ -486,7 +487,7 @@ function SortParties()
     // Er wordt een kopie gemaakt van een array die al punten bijhoudt, om ze te sorteren.
     var pScoreList = [];
 
-    // Met een forEach() word alles van parties gepushed naar pScoreList.
+    // Met een forEach() word alles van parties gepushed naar "pScoreList".
     parties.forEach(party => 
         {
             pScoreList.push(
@@ -496,7 +497,7 @@ function SortParties()
                 });
     })
 
-    // Vervolgens wordt de pScoreList gesorteerd met een ingebouwde sort() function voor arrays.
+    // Vervolgens wordt de "pScoreList" gesorteerd met een ingebouwde sort() function voor arrays.
     pScoreList.sort((a,b) => (a.score < b.score) ? 1 : -1);
  
     // Hier worden alle partijen daarna gecontroleerd of zij inderdaad gekozen zijn door ze een "check" property met een 'true' te geven.
@@ -534,7 +535,7 @@ function SortParties()
     
 }
 
-// Deze function hieronder laat de eindresultaat zien.
+// Function hieronder laat de eindresultaat zien.
 
 function showResult()
 {
