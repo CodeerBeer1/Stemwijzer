@@ -37,10 +37,6 @@ var TheRest = document.getElementById("the-rest");
 
 var multiplierButton = document.getElementById("multiplier-button");
 
-
-var secOn = false;
-var grtOn = false;
-var partyCount = 0;
 var pointsInOrder = [];
 var yourParties = [];
 var choices = [];
@@ -307,7 +303,6 @@ function endPartyChoose()
     var amountParties = parties.length;
 
 
-
 for (a = 0; a < amountParties; a++) 
 {
     var partyText = document.createTextNode(parties[a].name);
@@ -317,57 +312,47 @@ for (a = 0; a < amountParties; a++)
 
     party.className = "partyy";
     party.id = "partyy"+a;
-    party.name = parties[a].name;
-    party.isSelected  = false;
 
-    party.setAttribute("onclick", "ChoosingParty("+a+")")
+    party.setAttribute("onclick", "ChosingParty("+a+")")
 }
 
     volgende.onclick = function()
         {
-         
-               for (o = 0; o < amountParties; o++)
+           
+            for (o = 0; o < amountParties; o++)
             { 
                 var party = document.getElementById("partyy"+o);
-                
-                    yourParties.push(party)
-                    
-                
+                if (party.className == "party-chosen")
+                {
+                    yourParties.push(party.textContent);
+                }
             }
           showResult();
-           }
+        }
 
 }
 
-function ChoosingParty(a)
+function ChosingParty(a)
 {
     var party = document.getElementById("partyy"+a);
 
     if (party.className != "party-chosen")
         {
-            partyCount++;
+    
             party.className = "party-chosen";
-           party.isSelected = true;
     
         }
     
         else if (party.className == "party-chosen")
         {
-            partyCount--;
+        
             party.className = "partyy";
-            party.isSelected = false;
-           
+    
         }
 }
 
 function chooseSecularParties()
 {
-    if(grtOn == true)
-    {
-        partyCount = partyCount -21;
-        grtOn = false;
-    }
-    secOn = true;
     for (e=0; e < 24; e++)
     {
         var party = document.getElementById("partyy"+e);
@@ -375,13 +360,8 @@ function chooseSecularParties()
         {
             if(parties[e].secular == true)
             {
-                partyCount++;
                 party.className = "party-chosen";
 
-            }
-            else
-            {
-                party.className = "partyy";
             }
         }
     }
@@ -389,12 +369,6 @@ function chooseSecularParties()
 
 function chooseGreatParties()
 {
-    if(secOn == true)
-    {
-        partyCount = partyCount -21;
-        secOn = false;
-    }
-    grtOn = true;
     for (e=0; e < 24; e++)
     {
         var party = document.getElementById("partyy"+e);
@@ -403,11 +377,7 @@ function chooseGreatParties()
             if(parties[e].size >= 10)
             {
                 party.className = "party-chosen";
-                partyCount++;
-            }
-            else
-            {
-                party.className = "partyy";
+
             }
         }
     }
@@ -415,7 +385,6 @@ function chooseGreatParties()
 
 function showResult()
 {
-    
     resultModal.className = "hide";
     rankingModal.className = "grid";
 
@@ -423,33 +392,25 @@ function showResult()
 
     
     let pScoreList = [];
-    let chosenParties = [];
-
-    yourParties.forEach(parties => {
-        if(parties.isSelected == true)
-        {
-            chosenParties.push(parties.name);
-          
-        }
-    })
-
     parties.forEach(party => {
             pScoreList.push(p = {
             name: party.name,
             score: party.score
         });
-    
     })
     pScoreList.sort((a,b) => (a.score < b.score) ? 1 : -1);
 
- 
-
-    // for(i=0; i < pScoreList.length; i++){
-    //     if(pScoreList[i].name == chosenParties[i])
-    // }
-
-  console.log(pScoreList);
-  console.log(chosenParties);
+    var toRemove = pScoreList;
+        for(p = 0; p < 23; p++)
+        {
+            if (pScoreList[p].name != yourParties[0])
+            {
+                pScoreList,splice(p, 1);
+                
+            }
+        }
+    
+    console.log(toRemove);
 
     FirstChoice.innerHTML ="1ste keuze "+ pScoreList[0].name + ", "+ pScoreList[0].score + " punten";
     SecondChoice.innerHTML ="2de keuze "+ pScoreList[1].name + ", "+ pScoreList[1].score + " punten";
@@ -482,7 +443,12 @@ parties[r].score = 0;
             if(subjects[p].parties[a].position == choices[p].answer)
             {
                 var result = parties.find(function(party) {return party.name == subjects[p].parties[a].name})
-                result.score += 2 * choices[p].multiplier;
+                result.score++ * choices[p].multiplier;
             } 
         }
+
+        console.log(parties);
+
+    }
+    
 }
