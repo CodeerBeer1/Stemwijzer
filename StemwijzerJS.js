@@ -555,6 +555,7 @@ function chooseGreatParties()
             }
         }
     }
+    
 }
 
 // Function hieronder selecteert alle partijen die de gebruiker kan meenemen naar de eindresultaat.
@@ -598,7 +599,6 @@ function chooseAllParties()
                 party.className = "party-chosen";
                 party.check = true;
                 allbool = true;
-
             }
 
             else if(party.check == true)
