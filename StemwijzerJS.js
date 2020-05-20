@@ -399,25 +399,38 @@ function showResult()
         });
     })
     pScoreList.sort((a,b) => (a.score < b.score) ? 1 : -1);
-
-    var toRemove = pScoreList;
-        for(p = 0; p < 23; p++)
+    console.log(pScoreList);
+    for(o = 0; o < yourParties.length; o++)
+    {
+        for(p = 0; p < 24; p++)
         {
-            if (pScoreList[p].name != yourParties[0])
+            if (pScoreList[p].name == yourParties[o])
             {
-                pScoreList,splice(p, 1);
-                
+               pScoreList[p].check = true;
             }
         }
+    }
+    console.log(pScoreList);
+
+    for(i = 23; i > -1; i--)
+    {
+        if(pScoreList[i].check != true)
+        {
+            pScoreList.splice(i, 1);
+        }
+    }
+        
+        
     
-    console.log(toRemove);
+
 
     FirstChoice.innerHTML ="1ste keuze "+ pScoreList[0].name + ", "+ pScoreList[0].score + " punten";
     SecondChoice.innerHTML ="2de keuze "+ pScoreList[1].name + ", "+ pScoreList[1].score + " punten";
     ThirdChoice.innerHTML ="3de keuze "+ pScoreList[2].name + ", "+ pScoreList[2].score + " punten";
 
-    for (i = 3; i < pScoreList.length; i++)
+    for (i = 3; i < pScoreList.length+1; i++)
     {
+        alert(i)
         var place = document.getElementById("nr"+i);
         place.innerHTML = i + "de " + pScoreList[i].name + ", " + pScoreList[i].score + " punten";
 
