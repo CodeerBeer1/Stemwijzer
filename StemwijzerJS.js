@@ -153,13 +153,12 @@ function nextQuestion(value)
 
     if (choices.length < subjects.length)
     {
-        
         choices.push({question:choices.length+1, answer: value, multiplier: 1});
         questionSetup();
         progressBarData.grow();
     }
 
-    else if (choices.length >= subjects.length -1)
+    else if (choices.length >= subjects.length-1)
     {
 
         resultSetup();
@@ -357,33 +356,44 @@ function endPartyChoose()
 
         party.className = "partyy";
         party.id = "partyy"+a;
+        party.check = false;
 
         // De knoppen leiden naar een andere function die partijen opneemt voor de eindresultaat.
-        party.setAttribute("onclick", "ChosingParty("+a+")")
+        party.setAttribute("onclick", "ChoosingParty("+a+")")
     }
 
     // Gaat naar de eindresultaat.
     volgende.onclick = function()
         {
-           // Kijkt met for-loop welke knoppen groen zijn (dus "party-chosen" als classnaam hebben) en stuurt hun naam mee naar een array: yourParties.
+        var chosen = false;
+            // Kijkt met for-loop welke knoppen groen zijn (dus "party-chosen" als classnaam hebben) en stuurt hun naam mee naar een array: yourParties.
             for (o = 0; o < amountParties; o++)
             { 
                 var party = document.getElementById("partyy"+o);
+
                 if (party.className == "party-chosen")
                 {
+                    chosen = true;
                     yourParties.push(party.textContent);
                 }
             }
 
             // Laat eindresultaat zien.
-            showResult();
+            if(chosen  == true)
+            {
+                showResult();
+            }
+            else if(!chosen)
+            {
+                alert("U hebt nog geen partijen gekozen");
+            }
         }
 
 }
 
 // Function hieronder bepaalt of een partij wel of niet meegaat naar een eindresultaat.
 
-function ChosingParty(a)
+function ChoosingParty(a)
 {
 
     // Krijgt een ID van partij als argument mee om de juiste knop te selecteren.
@@ -394,14 +404,12 @@ function ChosingParty(a)
         {
     
             party.className = "party-chosen";
-    
         }
     
         else if (party.className == "party-chosen")
         {
         
             party.className = "partyy";
-    
         }
 }
 
@@ -410,18 +418,40 @@ function ChosingParty(a)
 function chooseSecularParties()
 {
 
+    var sec = document.getElementById("great").style.backgroundColor = "black";
+    var sec = document.getElementById("all").style.backgroundColor = "black";
+
     // Met een for-loop neemt het alle partijen op die hun naam en seculariteit controleert-
     // door het te vergelijken met de originele lijst van alle partijen met hun bijbehorende-
     // gegevens; en hun vervolgens een "party-chosen" als classnaam te geven.
     for (e=0; e < 24; e++)
     {
         var party = document.getElementById("partyy"+e);
-        if(party.textContent == parties[e].name )
+        if(party.textContent == parties[e].name)
         {
-            if(parties[e].secular == true)
-            {
-                party.className = "party-chosen";
 
+                party.className = "partyy";
+
+            if(party.check == false)
+            {
+                
+                if(parties[e].secular == true)
+                {
+                    party.className = "party-chosen";
+                    party.check = true;
+                    var sec = document.getElementById("secular").style.backgroundColor = "red";
+                }
+            }
+
+            else if(party.check == true)
+            {
+               
+                if(parties[e].secular == true)
+                {
+                    party.className = "partyy";
+                    party.check = false;
+                    var sec = document.getElementById("secular").style.backgroundColor = "black";
+                }
             }
         }
     }
@@ -431,6 +461,9 @@ function chooseSecularParties()
 
 function chooseGreatParties()
 {
+
+    var sec = document.getElementById("secular").style.backgroundColor = "black";
+    var sec = document.getElementById("all").style.backgroundColor = "black";
 
     // Met een for-loop neemt het alle partijen op die hun naam en grootte controleert-
     // door het te vergelijken met de originele lijst van alle partijen met hun bijbehorende-
@@ -443,8 +476,29 @@ function chooseGreatParties()
             if(parties[e].size >= 10)
             {
                 party.className = "party-chosen";
-
+                party.check = true;
             }
+        }
+    }
+}
+
+// Function hieronder selecteert alle partijen die de gebruiker kan meenemen naar de eindresultaat.
+
+function chooseAllParties()
+{
+
+    var sec = document.getElementById("secular").style.backgroundColor = "black";
+    var sec = document.getElementById("great").style.backgroundColor = "black";
+
+    // Met een for-loop neemt het alle partijen op die hun naam controleert-
+    // door het te vergelijken met de originele lijst van alle partijen met hun bijbehorende-
+    // gegevens; en hun vervolgens een "party-chosen" als classnaam te geven.
+    for (e=0; e < 24; e++)
+    {
+        var party = document.getElementById("partyy"+e);
+        if(party.textContent == parties[e].name )
+        {
+                party.className = "party-chosen";
         }
     }
 }
@@ -539,11 +593,12 @@ function SortParties()
 
 function showResult()
 {
-    resultModal.className = "hide";
-    rankingModal.className = "grid";
+   
+        resultModal.className = "hide";
+        rankingModal.className = "grid";
 
     // Voert ook functions uit voor het berekenen en sorteren van de eindresultaat.
-    CalculatePoints();
-    SortParties();
+        CalculatePoints();
+        SortParties();
 
 }
