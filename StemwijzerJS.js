@@ -428,12 +428,10 @@ function showResult()
     SecondChoice.innerHTML ="2de keuze "+ pScoreList[1].name + ", "+ pScoreList[1].score + " punten";
     ThirdChoice.innerHTML ="3de keuze "+ pScoreList[2].name + ", "+ pScoreList[2].score + " punten";
 
-    for (i = 3; i < pScoreList.length+1; i++)
+    for (i = 3; i < 25; i++)
     {
-        alert(i)
         var place = document.getElementById("nr"+i);
         place.innerHTML = i + "de " + pScoreList[i].name + ", " + pScoreList[i].score + " punten";
-
     }
 }
 
