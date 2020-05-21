@@ -703,8 +703,6 @@ function SortParties()
     for (u = 3; u < pScoreList.length; u++)
     {
         var place = document.getElementById("nr"+u);
-        console.log(pScoreList)
-        alert(pScoreList[u].name + "geplaatst")
         place.innerHTML = u+1 + "de " + pScoreList[u].name + ", " + pScoreList[u].score + " punten";
     }
     
