@@ -42,9 +42,9 @@ var agreeOpinions = document.getElementById("agree-opinions");
 var disagreeOpinions = document.getElementById("disagree-opinions");
 var neitherOpinions = document.getElementById("neither-opinions");
 
-var FirstChoice = document.getElementById("nr1");
-var SecondChoice = document.getElementById("nr2");
-var ThirdChoice = document.getElementById("nr3");
+var FirstChoice = document.getElementById("nrr1");
+var SecondChoice = document.getElementById("nrr2");
+var ThirdChoice = document.getElementById("nrr3");
 
 var TheRest = document.getElementById("the-rest");
 
@@ -113,31 +113,39 @@ function startStemwijzer()
 
 function questionSetup()
 {
-    console.log(choices);
-    resultModal.className = "hide";
-    loadingModal.className = "hide";
-    stellingenModal.className = "grid";
-    progressBar.className = "show";
-
-    // Button die zorgt voor meer gewicht van de vraag door vermenigvuldiging van punten.
-
-    multiplierButton.onclick = function()
+    if(choices.length < subjects.length)
     {
-        if(multistate == false)
+        console.log(choices);
+        resultModal.className = "hide";
+        loadingModal.className = "hide";
+        stellingenModal.className = "grid";
+        progressBar.className = "show";
+
+        // Button die zorgt voor meer gewicht van de vraag door vermenigvuldiging van punten.
+
+        multiplierButton.onclick = function()
         {
-            multistate = true;
-            multiplierButton.style.backgroundColor = "rgb(0, 191, 255)";  
+            if(multistate == false)
+            {
+                multistate = true;
+                multiplierButton.style.backgroundColor = "rgb(0, 191, 255)";  
+            }
+
+            else if(multistate == true)
+            {
+                multistate = false;
+                multiplierButton.style.backgroundColor = "black";
+            }
         }
 
-        else if(multistate == true)
-        {
-            multistate = false;
-            multiplierButton.style.backgroundColor = "black";
-        }
+        stellingTitle.innerHTML = subjects[choices.length].title;
+        stellingText.innerHTML = subjects[choices.length].statement;
     }
-
-    stellingTitle.innerHTML = subjects[choices.length].title;
-    stellingText.innerHTML = subjects[choices.length].statement;
+    
+    else 
+    {
+        resultSetup();
+    }
     
 }
 
@@ -161,7 +169,7 @@ function nextQuestion(value)
         questionSetup();
         progressBarData.grow();
     }
-
+    
     else if (choices.length >= subjects.length-1)
     {
 
@@ -332,13 +340,14 @@ function showOpinions()
 function resultSetup()
 {
 
+    progressBarData.shrink();
     contributorsOpinionModal.className = "hide";
     stellingenModal.className = "hide";
 
     resultModal.className = "grid";
 
     // Je kan ondertussen kiezen wat je voorkeuren zijn bij partijen.
-    endPartyChoose()
+    endPartyChoose();
 
 }
 
@@ -455,7 +464,7 @@ function chooseSecularParties()
 
     if(secbool == false)
     {
-        for(r = 0; r < 24; r++)
+        for(r = 0; r < parties.length; r++)
         {
             var party = document.getElementById("partyy"+r);
             if(party.textContent == parties[r].name)
@@ -467,7 +476,7 @@ function chooseSecularParties()
     }
     
 
-    for (e=0; e < 24; e++)
+    for (e=0; e < parties.length; e++)
     {
         var party = document.getElementById("partyy"+e);
         if(party.textContent == parties[e].name)
@@ -519,7 +528,7 @@ function chooseGreatParties()
 
     if(greatbool == false)
     {
-        for(r = 0; r < 24; r++)
+        for(r = 0; r < parties.length; r++)
         {
             var party = document.getElementById("partyy"+r);
             if(party.textContent == parties[r].name)
@@ -530,7 +539,7 @@ function chooseGreatParties()
         }
     }
 
-    for (e=0; e < 24; e++)
+    for (e=0; e < parties.length; e++)
     {
         var party = document.getElementById("partyy"+e);
         if(party.textContent == parties[e].name )
@@ -575,7 +584,7 @@ function chooseAllParties()
 
     if(allbool == false)
     {
-        for(r = 0; r < 24; r++)
+        for(r = 0; r < parties.length; r++)
         {
             var party = document.getElementById("partyy"+r);
             if(party.textContent == parties[r].name)
@@ -586,7 +595,7 @@ function chooseAllParties()
         }
     }
 
-    for (w=0; w < 24; w++)
+    for (w=0; w < parties.length; w++)
     {
 
         var party = document.getElementById("partyy"+w);
@@ -667,7 +676,7 @@ function SortParties()
     // Hier worden alle partijen daarna gecontroleerd of zij inderdaad gekozen zijn door ze een "check" property met een 'true' te geven.
     for(o = 0; o < yourParties.length; o++)
     {
-        for(p = 0; p < 24; p++)
+        for(p = 0; p < parties.length; p++)
         {
             // Kijkt of de namen in "yourParties" in "pScoreList" zijn.
             if (pScoreList[p].name == yourParties[o])
@@ -678,7 +687,7 @@ function SortParties()
     }
 
     // De resterende partijen die niet zijn gekozen (dus geen 'true' bij zich hebben) worden uit de array verwijderd.
-    for(i = 23; i > -1; i--)
+    for(i = 22; i > -1; i--)
     {
         if(pScoreList[i].check != true)
         {
@@ -691,10 +700,12 @@ function SortParties()
     SecondChoice.innerHTML ="2de keuze "+ pScoreList[1].name + ", "+ pScoreList[1].score + " punten";
     ThirdChoice.innerHTML ="3de keuze "+ pScoreList[2].name + ", "+ pScoreList[2].score + " punten";
 
-    for (i = 3; i < 25; i++)
+    for (u = 3; u < pScoreList.length; u++)
     {
-        var place = document.getElementById("nr"+i);
-        place.innerHTML = i + "de " + pScoreList[i].name + ", " + pScoreList[i].score + " punten";
+        var place = document.getElementById("nr"+u);
+        console.log(pScoreList)
+        alert(pScoreList[u].name + "geplaatst")
+        place.innerHTML = u+1 + "de " + pScoreList[u].name + ", " + pScoreList[u].score + " punten";
     }
     
 }

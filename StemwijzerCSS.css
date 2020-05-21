@@ -573,10 +573,10 @@ background-size: cover;
 
 }
 
-#nr1, #nr2, #nr3
+#nrr1, #nrr2, #nrr3
 {
     text-align: center;
-    font-size: 120%;
+    font-size: 110%;
     font-weight: bold;
     color: rgb(204, 204, 70);    
     font-family: Arial, Helvetica, sans-serif;
