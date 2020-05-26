@@ -8,8 +8,11 @@
 
 */
 
-
-// Alle HTML elementen worden hier opgehaald.
+/**
+ * 
+ *  Alle HTML elementen worden hier opgehaald.
+ * 
+ */
 
 var body = document.getElementById("body");
 var stemwijzerModal = document.getElementById("intro-modal");
@@ -49,8 +52,11 @@ var ThirdChoice = document.getElementById("nrr3");
 var TheRest = document.getElementById("the-rest");
 
 var multiplierButton = document.getElementById("multiplier-button");
-
-// Alle globale variabelen.
+/**
+ * 
+ * Alle globale variabelen.
+ * 
+ */
 
 var yourParties = [];
 var choices = [];
@@ -61,8 +67,13 @@ var secbool = false;
 var greatbool = false;
 var allbool = false;
 
-// Deze object hieronder houdt bij hoever je bent met de stemwijzer, door een balk te laten weergeven-
-// die groeit of krimpt afhankelijk van jouw voortgang.
+/**
+ * 
+ * Deze object hieronder houdt bij hoever je bent met de stemwijzer, door een balk te laten weergeven-
+ * die groeit of krimpt afhankelijk van jouw voortgang.
+ * 
+ */
+
 
 var progressBarData = 
 {
@@ -70,6 +81,9 @@ var progressBarData =
     width: 0,
     fraction: this.width =+ 61/subjects.length,
 
+    /**
+     * 'grow' en 'shrink' methods zorgen ervoor dat balk groeit of kleiner wordt.
+     */
     grow: function()
     {
         this.width = this.width + this.fraction;
@@ -86,7 +100,11 @@ var progressBarData =
 
 }
 
-// Function hieronder zet de eerste gedeelte van de applicatie in elkaar.
+/**
+ * 
+ * Function hieronder zet de eerste gedeelte van de applicatie in elkaar.
+ * 
+ */
 
 function intro()
 {
@@ -98,7 +116,11 @@ function intro()
     contributorsOverviewModal.className = "grid";
 }
 
-// Function hieronder start de stemwijzer.
+/**
+ * 
+ * Function hieronder start de stemwijzer.
+ * 
+ */
 
 function startStemwijzer()
 {
@@ -109,7 +131,11 @@ function startStemwijzer()
    setTimeout(function() {questionSetup()}, 1500);
 }
 
-// Function hieronder zet de vraag inelkaar met de bijbehorende gegevens.
+/**
+ * 
+ * Function hieronder zet de vraag inelkaar met de bijbehorende gegevens.
+ * 
+ */
 
 function questionSetup()
 {
@@ -121,7 +147,9 @@ function questionSetup()
         stellingenModal.className = "grid";
         progressBar.className = "show";
 
-        // Button die zorgt voor meer gewicht van de vraag door vermenigvuldiging van punten.
+        /**
+         * Button die zorgt voor meer gewicht van de vraag door vermenigvuldiging van punten.
+         */
 
         multiplierButton.onclick = function()
         {
@@ -149,19 +177,27 @@ function questionSetup()
     
 }
 
-// Function hieronder schakelt naar de volgende vraag.
+/**
+ * 
+ * Function hieronder schakelt naar de volgende vraag.
+ * 
+ */
 
 function nextQuestion(value)
 {
 
-    // Sluit ook de meningen van partijen.
+    /**
+     * Sluit ook de meningen van partijen.
+     */
 
     if (theBool == true)
     {
         partyOpinionClose();
     }
     
-    // Slaat de ingevoerde gegevens op in een array.
+    /**
+     * Slaat de ingevoerde gegevens op in een array.
+     */
 
     if (choices.length < subjects.length)
     {
@@ -182,7 +218,11 @@ function nextQuestion(value)
     }
 }
 
-// Function hieronder gaat terug naar de vorige vraag.
+/**
+ * 
+ * Function hieronder gaat terug naar de vorige vraag.
+ * 
+ */
 
 function back()
 {
@@ -218,7 +258,11 @@ function back()
     
 }
 
-// Function hieronder laadt alle partijen tervoorschijn met een knop die allemaal leiden naar hun meningen.
+/**
+ * 
+ * Function hieronder laadt alle partijen tervoorschijn met een knop die allemaal leiden naar hun meningen.
+ * 
+ */
 
 function partyOpinionLoad()
 {
@@ -262,7 +306,11 @@ function partyOpinionLoad()
 
 }
 
-// Function hieronder verdwijnen alle partijen met hun buttons voor hun meningen.
+/**
+ * 
+ * Function hieronder verdwijnen alle partijen met hun buttons voor hun meningen.
+ * 
+ */
 
 function partyOpinionClose()
 {
@@ -277,7 +325,11 @@ function partyOpinionClose()
 
 }
 
-// Function hieronder laadt de mening van de partij zelf in een modal.
+/**
+ * 
+ * Function hieronder laadt de mening van de partij zelf in een modal.
+ * 
+ */
 
 function loadActualOpinion(theParty)
 {
@@ -309,7 +361,11 @@ function loadActualOpinion(theParty)
     }
 }
 
-// Function hieronder haalt de mening van de scherm af.
+/**
+ * 
+ * Function hieronder haalt de mening van de scherm af.
+ * 
+ */
 
 function closeActualOpinion()
 {
@@ -319,7 +375,11 @@ function closeActualOpinion()
     opinion.innerHTML = "";
 }
 
-// Function hieronder leidt naar andere functions die zorgen voor de verschijning van de meningen.
+/**
+ * 
+ * Function hieronder leidt naar andere functions die zorgen voor de verschijning van de meningen.
+ * 
+ */
 
 function showOpinions()
 {
@@ -335,7 +395,11 @@ function showOpinions()
     }
 }
 
-// Function hieronder zet alvast alles klaar voor de uitslag presentatie.
+/**
+ * 
+ * Function hieronder zet alvast alles klaar voor de uitslag presentatie.
+ * 
+ */
 
 function resultSetup()
 {
@@ -346,12 +410,19 @@ function resultSetup()
 
     resultModal.className = "grid";
 
-    // Je kan ondertussen kiezen wat je voorkeuren zijn bij partijen.
+    /**
+     * Je kan ondertussen kiezen wat je voorkeuren zijn bij partijen.
+     */
+
     endPartyChoose();
 
 }
 
-// Function hieronder haalt alle partijen tervoorschijn om te kiezen welke je mee wilt nemen.
+/**
+ * 
+ * Function hieronder haalt alle partijen tervoorschijn om te kiezen welke je mee wilt nemen.
+ * 
+ */
 
 function endPartyChoose()
 {
@@ -359,7 +430,9 @@ function endPartyChoose()
     endPartyChoose = true;
     var amountParties = parties.length;
 
-    // Laadt ze allemaal in.
+    /**
+     * Laadt ze allemaal in.
+     */
     for (a = 0; a < amountParties; a++) 
     {
         var partyText = document.createTextNode(parties[a].name);
@@ -384,15 +457,21 @@ function endPartyChoose()
        
 
 
-        // De knoppen leiden naar een andere function die partijen opneemt voor de eindresultaat.
+        /**
+         * De knoppen leiden naar een andere function die partijen opneemt voor de eindresultaat.
+         */
         party.setAttribute("onclick", "ChoosingParty("+a+")")
     }
 
-    // Gaat naar de eindresultaat.
+    /**
+     * Gaat naar de eindresultaat.
+     */
     volgende.onclick = function()
         {
         var chosen = false;
-            // Kijkt met for-loop welke knoppen groen zijn (dus "party-chosen" als classnaam hebben) en stuurt hun naam mee naar een array: yourParties.
+            /**
+             * Kijkt met for-loop welke knoppen groen zijn (dus "party-chosen" als classnaam hebben) en stuurt hun naam mee naar een array: yourParties.
+             */
             for (o = 0; o < amountParties; o++)
             { 
                 var party = document.getElementById("partyy"+o);
@@ -404,7 +483,9 @@ function endPartyChoose()
                 }
             }
 
-            // Laat eindresultaat zien.
+            /**
+             * Laat eindresultaat zien.
+             */
             if(chosen  == true)
             {
                 showResult();
@@ -417,12 +498,18 @@ function endPartyChoose()
 
 }
 
-// Function hieronder bepaalt of een partij wel of niet meegaat naar een eindresultaat.
+/**
+ * 
+ * Function hieronder bepaalt of een partij wel of niet meegaat naar een eindresultaat.
+ *  
+ */
 
 function ChoosingParty(a)
 {
 
-    // Krijgt een ID van partij als argument mee om de juiste knop te selecteren.
+    /**
+     * Krijgt een ID van partij als argument mee om de juiste knop te selecteren.
+     */
 
     var party = document.getElementById("partyy"+a);
 
@@ -447,7 +534,11 @@ function ChoosingParty(a)
         }
 }
 
-// Function hieronder selecteert alle seculiere partijen die de gebruiker kan meenemen naar de eindresultaat.
+/**
+ * 
+ * Function hieronder selecteert alle seculiere partijen die de gebruiker kan meenemen naar de eindresultaat.
+ * 
+ */
 
 function chooseSecularParties()
 {
@@ -458,9 +549,11 @@ function chooseSecularParties()
     greatbool = false;
     allbool = false;
 
-    // Met een for-loop neemt het alle partijen op die hun naam en seculariteit controleert-
-    // door het te vergelijken met de originele lijst van alle partijen met hun bijbehorende-
-    // gegevens; en hun vervolgens een "party-chosen" als classnaam te geven.
+    /**
+     * Met een for-loop neemt het alle partijen op die hun naam en seculariteit controleert-
+     * door het te vergelijken met de originele lijst van alle partijen met hun bijbehorende-
+     * gegevens; en hun vervolgens een "party-chosen" als classnaam te geven.
+     */
 
     if(secbool == false)
     {
@@ -511,7 +604,11 @@ function chooseSecularParties()
     }
 }
 
-// Function hieronder selecteert alle grote partijen die de gebruiker kan meenemen naar de eindresultaat.
+/**
+ * 
+ * Function hieronder selecteert alle grote partijen die de gebruiker kan meenemen naar de eindresultaat.
+ * 
+ */
 
 function chooseGreatParties()
 {
@@ -522,9 +619,11 @@ function chooseGreatParties()
     secbool = false;
     allbool = false;
 
-    // Met een for-loop neemt het alle partijen op die hun naam en grootte controleert-
-    // door het te vergelijken met de originele lijst van alle partijen met hun bijbehorende-
-    // gegevens; en hun vervolgens een "party-chosen" als classnaam te geven.
+    /**
+     * Met een for-loop neemt het alle partijen op die hun naam en grootte controleert-
+     * door het te vergelijken met de originele lijst van alle partijen met hun bijbehorende-
+     * gegevens; en hun vervolgens een "party-chosen" als classnaam te geven.
+     */
 
     if(greatbool == false)
     {
@@ -567,7 +666,11 @@ function chooseGreatParties()
     
 }
 
-// Function hieronder selecteert alle partijen die de gebruiker kan meenemen naar de eindresultaat.
+/**
+ * 
+ * Function hieronder selecteert alle partijen die de gebruiker kan meenemen naar de eindresultaat.
+ * 
+ */
 
 function chooseAllParties()
 {
@@ -578,9 +681,11 @@ function chooseAllParties()
     secbool = false;
     greatbool = false;
 
-    // Met een for-loop neemt het alle partijen op die hun naam controleert-
-    // door het te vergelijken met de originele lijst van alle partijen met hun bijbehorende-
-    // gegevens; en hun vervolgens een "party-chosen" als classnaam te geven.
+    /**
+     * Met een for-loop neemt het alle partijen op die hun naam controleert-
+     * door het te vergelijken met de originele lijst van alle partijen met hun bijbehorende-
+     * gegevens; en hun vervolgens een "party-chosen" als classnaam te geven.
+     */
 
     if(allbool == false)
     {
@@ -622,20 +727,29 @@ function chooseAllParties()
 
 }
 
-// Function hieronder berekent de punten van de partijen.
+/**
+ * 
+ * Function hieronder berekent de punten van de partijen.
+ * 
+ */
 
 function CalculatePoints()
 {
 
-    // In de "parties" array krijgen alle partijen krijgen "score" property om hun punten bij te houden.
+    /**
+     * In de "parties" array krijgen alle partijen krijgen "score" property om hun punten bij te houden.
+     */
     for ( r = 0 ; r < parties.length; r ++)
     {
         parties[r].score = 0;
     }
    
-    // Hier gaat de for-loop over al je antwoorden en van de partijen, en kijkt of ze overeen komen.
-    // Als dat het geval is, wordt de partij opgezocht in "parties" door een ingebouwde find() array function, wordt de score-
-    // verhoogd en als van toepassing is vermenigvuldigd door 2.
+    /**
+     * Hier gaat de for-loop over al je antwoorden en van de partijen, en kijkt of ze overeen komen.
+     * Als dat het geval is, wordt de partij opgezocht in "parties" door een ingebouwde find() array function, wordt de score-
+     * verhoogd en als van toepassing is vermenigvuldigd door 2.
+     */
+
     for(p = 0; p < subjects.length; p++)
     {
         for(a = 0; a < subjects[p].parties.length; a++)
@@ -652,15 +766,24 @@ function CalculatePoints()
     }
 }
 
-// Function hieronder sorteert de partijen aan de hand van hun punten en voorkeur van de gebruiker.
+/**
+ * 
+ * Function hieronder sorteert de partijen aan de hand van hun punten en voorkeur van de gebruiker.
+ * 
+ */
 
 function SortParties()
 {
 
-    // Er wordt een kopie gemaakt van een array die al punten bijhoudt, om ze te sorteren.
+    /**
+     * Er wordt een kopie gemaakt van een array die al punten bijhoudt, om ze te sorteren.
+     */
+
     var pScoreList = [];
 
-    // Met een forEach() word alles van parties gepushed naar "pScoreList".
+    /**
+     * Met een forEach() word alles van parties gepushed naar "pScoreList".
+     */
     parties.forEach(party => 
         {
             pScoreList.push(
@@ -670,15 +793,21 @@ function SortParties()
                 });
     })
 
-    // Vervolgens wordt de "pScoreList" gesorteerd met een ingebouwde sort() function voor arrays.
+    /**
+     * Vervolgens wordt de "pScoreList" gesorteerd met een ingebouwde sort() function voor arrays.
+     */
     pScoreList.sort((a,b) => (a.score < b.score) ? 1 : -1);
  
-    // Hier worden alle partijen daarna gecontroleerd of zij inderdaad gekozen zijn door ze een "check" property met een 'true' te geven.
+    /**
+     * Hier worden alle partijen daarna gecontroleerd of zij inderdaad gekozen zijn door ze een "check" property met een 'true' te geven.
+     */
     for(o = 0; o < yourParties.length; o++)
     {
         for(p = 0; p < parties.length; p++)
         {
-            // Kijkt of de namen in "yourParties" in "pScoreList" zijn.
+            /**
+             * Kijkt of de namen in "yourParties" in "pScoreList" zijn.
+             */
             if (pScoreList[p].name == yourParties[o])
             {
                pScoreList[p].check = true;
@@ -686,7 +815,9 @@ function SortParties()
         }
     }
 
-    // De resterende partijen die niet zijn gekozen (dus geen 'true' bij zich hebben) worden uit de array verwijderd.
+    /**
+     * De resterende partijen die niet zijn gekozen (dus geen 'true' bij zich hebben) worden uit de array verwijderd.
+     */
     for(i = 22; i > -1; i--)
     {
         if(pScoreList[i].check != true)
@@ -695,7 +826,9 @@ function SortParties()
         }
     }
 
-    // Laat ze zien met de index van de array met de partijen op de juiste volgorde en voorkeur van de gebruiker.
+    /**
+     * Laat ze zien met de index van de array met de partijen op de juiste volgorde en voorkeur van de gebruiker.
+     */
     FirstChoice.innerHTML ="1ste keuze "+ pScoreList[0].name + ", "+ pScoreList[0].score + " punten";
     SecondChoice.innerHTML ="2de keuze "+ pScoreList[1].name + ", "+ pScoreList[1].score + " punten";
     ThirdChoice.innerHTML ="3de keuze "+ pScoreList[2].name + ", "+ pScoreList[2].score + " punten";
@@ -708,7 +841,11 @@ function SortParties()
     
 }
 
-// Function hieronder laat de eindresultaat zien.
+/**
+ * 
+ * Function hieronder laat de eindresultaat zien.
+ * 
+ */
 
 function showResult()
 {
@@ -716,7 +853,9 @@ function showResult()
         resultModal.className = "hide";
         rankingModal.className = "grid";
 
-    // Voert ook functions uit voor het berekenen en sorteren van de eindresultaat.
+    /**
+     * Voert ook functions uit voor het berekenen en sorteren van de eindresultaat.
+     */
         CalculatePoints();
         SortParties();
 
